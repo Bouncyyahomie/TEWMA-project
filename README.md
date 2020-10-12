@@ -1,6 +1,6 @@
 # TEWMA-project
 [![Build Status](https://travis-ci.com/Bouncyyahomie/TEWMA-project.svg?branch=main)](https://travis-ci.com/Bouncyyahomie/TEWMA-project)
-[![codecov](https://codecov.io/gh/Bouncyyahomie/TEWMA-project/branch/master/graph/badge.svg?token=AAJEXACAQ1)](undefined)
+[![codecov](https://codecov.io/gh/Bouncyyahomie/TEWMA-project/branch/main/graph/badge.svg)](https://codecov.io/gh/Bouncyyahomie/TEWMA-project)
 Django web application for Online tutoring appointment.
 
 ## Document
