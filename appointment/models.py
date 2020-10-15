@@ -4,6 +4,7 @@ from django.utils import timezone
 # from django.contrib.auth.models import User
 import datetime
 
+
 class Meeting(models.Model):
     """Django model Object for meeting."""
 
@@ -14,11 +15,5 @@ class Meeting(models.Model):
     end_time = models.DateTimeField()
 
     def __str__(self):
+        """Return string representative."""
         return self.subject
-
-    
-
-    
-
-    
-
