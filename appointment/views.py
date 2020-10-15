@@ -15,7 +15,7 @@ def get_date(req_day):
 
 class IndexView(generic.ListView):
     model = Meeting
-    template_name = 'home_page.html'
+    template_name = 'appointment/home_page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
