@@ -24,3 +24,4 @@ class IndexView(generic.ListView):
         html_calendar = calendar.formatmonth(withyear=True)
         context['calendar'] = mark_safe(html_calendar)
         return context
+
