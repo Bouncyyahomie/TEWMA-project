@@ -8,3 +8,7 @@ Django web application for Online tutoring appointment.
 [My Requirements](../../wiki/Requirements)
 
 [My Vision Statement](../../wiki/Vision%20Statement)
+
+[Iteration 1 plan](../../wiki/Iteration%201%20Plan)
+
+[Iteration 2 plan](../../wiki/Iteration%202%20Plan)
