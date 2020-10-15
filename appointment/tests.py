@@ -28,23 +28,3 @@ class IndexViewTest(TestCase):
     def test_check_home_page(self):
         response = self.client.get(reverse('appointment:home_page'))
         self.assertContains(response, "Welcome, UserName")
-
-    # def test_check_calendar(self):
-    #     calendar = Calendar()
-    #     self.assertEqual(calendar.formatday(),)
-
-#     def test_no_meeting(self):
-#         response = self.client.get(reverse('appointment:index'))
-#         self.assertEqual(response.status_code, 200)
-#         self.assertContains(response, "No polls are available.")
-
-#     def test_past_meeting(self):
-#         meet = Meeting()
-#         response = self.client.get(reverse('appointment:index'))
-#         self.assertQuerysetEqual(
-#             response.context['latest_question_list'],
-#             ['<Meeting: Past Meeting.>']
-#         )
-
-    
-        
