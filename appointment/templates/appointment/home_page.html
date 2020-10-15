@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="clearfix">
-    <span class="left m-2" style="font-size: 20px;">Welcome, UserName </span>
+    <span class="left m-2" style="font-size: 20px;">Welcome, {{request.user}} </span>
 </div>
 <div style="color: palevioletred;">
     {{ calendar }}
