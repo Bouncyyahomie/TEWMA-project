@@ -30,14 +30,34 @@
     
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'register' %}">Registration<span class="sr-only">(current)</span></a>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+{#        <form class="form-inline my-2 my-lg-0">#}
+{#          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">#}
+{#          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>#}
+{#        </form>#}
+        <div class="input-group col-md-4">
+            <input class="form-control py-2 border-right-0 border" type="search" value="Search" id="example-search-input">
+            <span class="input-group-append">
+              <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                    <i class="fa fa-search"></i>
+              </button>
+            </span>
+        </div>
       </div>
     </nav>
     {% block content %}{% endblock %}
