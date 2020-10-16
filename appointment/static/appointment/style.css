@@ -32,3 +32,7 @@ ul {
 height: 100%;
 padding: 0px 5px 0px 20px;
 }
+
+body {
+    padding-top: 65px;
+}
