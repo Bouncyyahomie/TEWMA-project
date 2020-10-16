@@ -44,3 +44,13 @@ class IndexView(generic.ListView):
         context['prev_month'] = prev_month(this_day)
         context['next_month'] = next_month(this_day)
         return context
+
+def meeting_list(request, day):
+    meetings = Meeting.objects.get(starttime= day)
+    context = {'meeting': meetings} 
+    return render(request, 'meeting_list.html', context)
+
+def detail(request,meeting_id):
+    meetings = Meeting.objects.get(id= meeting_id)
+    context = {'meeting': meetings}
+    return render(request, 'detail.html', meetings)
