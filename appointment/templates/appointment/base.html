@@ -39,21 +39,17 @@
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Registration</a>
+            <a class="nav-link" href="{% url 'register' %}">SignUp</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           {% endif %}
         </ul>
-{#        <form class="form-inline my-2 my-lg-0">#}
-{#          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">#}
-{#          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>#}
-{#        </form>#}
         <div class="input-group col-md-4">
-            <input class="form-control py-2 border-right-0 border" type="search" value="Search" id="example-search-input">
+            <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search" aria-label="Search">
             <span class="input-group-append">
-              <button class="btn btn-outline-secondary border-left-0 border" type="button">
+              <button class="btn btn-outline-secondary border-left-0 border" type="submit">
                     <i class="fa fa-search"></i>
               </button>
             </span>
