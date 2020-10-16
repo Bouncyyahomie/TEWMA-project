@@ -19,7 +19,7 @@ class Calendar(HTMLCalendar):
         meets_per_day = meetings.filter(start_time__day=day)
         meets_in_day = ''
         for meet in meets_per_day:
-            meets_in_day += f"<li> 1 </li>"
+            meets_in_day += f"<li> {meet.subject} </li>"
         if day != 0:
             return f"<td><span class='date'>{day}</span><ul> {meets_in_day} </ul></td>"
         return '<td></td>'
