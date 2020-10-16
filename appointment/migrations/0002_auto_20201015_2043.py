@@ -10,14 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='meeting',
-            name='contact',
-        ),
-        migrations.RemoveField(
-            model_name='meeting',
-            name='location',
-        ),
         migrations.AlterField(
             model_name='meeting',
             name='description',
