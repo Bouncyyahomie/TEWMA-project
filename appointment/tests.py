@@ -5,13 +5,12 @@ from django.utils import timezone
 from django.urls import reverse
 from .utils import Calendar
 from .models import Meeting
-from django.contrib.auth.models import User
-
 
 # def create_meeting(subject, description, location, start_time, contact, end_time):
 #     time = timezone.now() + datetime.timedelta(days=start_time)
 #     time_end = timezone.now() + datetime.timedelta(days=end_time)
 #     return Meeting.objects.create(subject = subject , description = description, location = location, start_time = time , contact = contact , end_time = time_end)
+
 
 
 class MeetingModelTest(TestCase):
@@ -26,6 +25,6 @@ class MeetingModelTest(TestCase):
 class IndexViewTest(TestCase):
     """Test for TewMa home page."""
 
-    def test_check_default_home_page(self):
+    def test_check_home_page(self):
         response = self.client.get(reverse('appointment:home_page'))
-        self.assertContains(response, "Welcome, AnonymousUser")
+        self.assertContains(response, "Welcome, UserName")
