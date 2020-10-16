@@ -27,4 +27,4 @@ class IndexViewTest(TestCase):
 
     def test_check_home_page(self):
         response = self.client.get(reverse('appointment:home_page'))
-        self.assertContains(response, "Welcome, UserName")
+        self.assertContains(response, "Welcome, AnonymousUser")
