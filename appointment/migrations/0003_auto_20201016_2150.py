@@ -8,8 +8,19 @@ class Migration(migrations.Migration):
     dependencies = [
         ('appointment', '0002_auto_20201015_2043'),
     ]
-
     operations = [
+        migrations.AddField(
+            model_name='meeting',
+            name='contact',
+            field=models.CharField(default=django.utils.timezone.now, max_length=100),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='meeting',
+            name='loaction',
+            field=models.CharField(default=2, max_length=100),
+            preserve_default=False,
+        ),
         migrations.AlterField(
             model_name='meeting',
             name='subject',
