@@ -38,4 +38,14 @@ class Migration(migrations.Migration):
             name='subject',
             field=models.CharField(max_length=200),
         ),
+        migrations.AlterField(
+            model_name='meeting' ,
+            name='location',
+            field=models.CharField(max_length=100),
+        ),
+        migrations.AlterField(
+            model_name='meeting' ,
+            name='contact',
+            field=models.CharField(max_length=100)
+        )
     ]

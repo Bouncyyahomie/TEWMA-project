@@ -12,7 +12,7 @@ class Meeting(models.Model):
     description = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    loaction = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
     contact = models.CharField(max_length=100)
 
     def __str__(self):
