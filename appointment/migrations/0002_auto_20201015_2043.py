@@ -10,14 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='meeting',
-            name='contact',
-        ),
-        migrations.RemoveField(
-            model_name='meeting',
-            name='location',
-        ),
         migrations.AlterField(
             model_name='meeting',
             name='description',
@@ -38,4 +30,14 @@ class Migration(migrations.Migration):
             name='subject',
             field=models.CharField(max_length=200),
         ),
+        migrations.AlterField(
+            model_name='meeting' ,
+            name='location',
+            field=models.CharField(max_length=100),
+        ),
+        migrations.AlterField(
+            model_name='meeting' ,
+            name='contact',
+            field=models.CharField(max_length=100)
+        )
     ]
