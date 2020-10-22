@@ -8,6 +8,6 @@ class MeetingAdmin(admin.ModelAdmin):
         (None,  {'fields': ['subject']}),
         ('Infomation', {'fields': ['start_time']})
     ]
-    list_display = ('subject','start_time','location','contact')
-
+    list_display = ('id','subject','start_time','location','contact')
+    search_field = ['subject']
 admin.site.register(Meeting,MeetingAdmin)
