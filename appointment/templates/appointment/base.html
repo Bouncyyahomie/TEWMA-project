@@ -11,16 +11,51 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
     <link rel="stylesheet" type="text/css" href="{% static 'appointment/style.css' %}">
     <title>TewMa</title>
+
+    <style>
+        .alert {
+            opacity: 1;
+            transition: opacity 0.6s; /* 600ms to fade out */
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
+                <span class="closebtn">&times;</span>  
                 {{ message }}
             </div>
         {% endfor %}
     {% endif %}
+    <script>
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+        
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+          }
+        }
+    </script>
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="{% url 'appointment:home_page' %}">TewMa</a>
