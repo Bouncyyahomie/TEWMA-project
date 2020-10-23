@@ -2,3 +2,4 @@ coverage
 Django
 django-environ
 django-crispy-forms
+Pillow
