@@ -1,0 +1,18 @@
+{% extends 'appointment/base.html' %}
+
+{% block content %}
+<div>
+    <tr>
+        <th>Subject</th>
+        <th>Location</th>
+        <th>Time</th>
+        <th>Detail</th>
+    </tr>
+    {% for meet in meetings}
+        <td>{{meet.subject}}</td>
+        <td> location</td>
+        <td>{{meet.starttime}}</td>
+        <td><a href="{% url 'appointment:detail' meeting.id%}"></a></td>
+</div>
+
+{% endblock %}

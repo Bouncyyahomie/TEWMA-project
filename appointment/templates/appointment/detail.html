@@ -1,0 +1,13 @@
+{% extends 'appointment/base.html' %}
+
+{% block content %}
+<div class = "detail">
+    <h2>Date</h2>
+    <p>Subject : {{meeting.subject}}</p>
+    <p>Description : {{meeting.description}}</p>
+    <p>Location {{meeting.location}}</p>
+    <p>Time : {{meeting.start_time}} - {{meeting.end_time}}</p>
+    <p>Contact {{meeting.contact}}</p>
+    <button> Join </button>
+</div>
+{% endblock %}
