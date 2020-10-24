@@ -47,7 +47,6 @@ class IndexView(generic.ListView):
 
 def meeting_list(request, day):
     meetings = Meeting.objects.filter(start_time__day=day)
-
     context = {'meeting': meetings} 
     return render(request, 'appointment/meeting_list.html', context)
 

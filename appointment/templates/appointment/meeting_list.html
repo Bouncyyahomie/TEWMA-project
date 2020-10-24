@@ -1,7 +1,9 @@
 {% extends 'appointment/base.html' %}
 
 {% block content %}
+
 <div>
+<table class = "meeting_list">
     <tr>
         <th>Subject</th>
         <th>Location</th>
@@ -9,11 +11,14 @@
         <th>Detail</th>
     </tr>
     {% for meet in meeting %}
+    <tr>
         <td>{{meet.subject}}</td>
         <td> location</td>
-        <td>{{meet.start_time}}</td>
-        <td><a href="{% url 'appointment:detail' meeting.id%}"></a></td>
+        <td>{{meet.start_time.time}}</td>
+        <td><a href="{% url 'appointment:detail' meet.id%}">see more</a></td>
+    </tr>
     {% endfor %}
+</table>
 </div>
 
 {% endblock %}
