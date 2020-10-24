@@ -31,7 +31,7 @@ class Calendar(HTMLCalendar):
         week = ''
         for day, weekday in theweek:
             week += self.formatday(day, meetings)
-        return f"<tr> {week} </tr>"
+        return f"<tr><a> {week} </a></tr>"
 
     def formatmonth(self, withyear=True):
         """Return a one month of calendar."""

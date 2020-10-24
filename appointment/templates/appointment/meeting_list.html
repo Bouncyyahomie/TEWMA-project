@@ -8,11 +8,12 @@
         <th>Time</th>
         <th>Detail</th>
     </tr>
-    {% for meet in meetings}
+    {% for meet in meeting %}
         <td>{{meet.subject}}</td>
         <td> location</td>
-        <td>{{meet.starttime}}</td>
+        <td>{{meet.start_time}}</td>
         <td><a href="{% url 'appointment:detail' meeting.id%}"></a></td>
+    {% endfor %}
 </div>
 
 {% endblock %}
