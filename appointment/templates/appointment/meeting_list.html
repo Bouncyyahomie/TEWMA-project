@@ -14,7 +14,7 @@
     <tr>
         <td>{{meet.subject}}</td>
         <td> location</td>
-        <td>{{meet.start_time.time}}</td>
+        <td>{{meet.start_time|time:"P"}}</td>
         <td><a href="{% url 'appointment:detail' meet.id%}">see more</a></td>
     </tr>
     {% endfor %}
