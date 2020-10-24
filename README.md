@@ -12,3 +12,5 @@ Django web application for Online tutoring appointment.
 [Iteration 1 plan](../../wiki/Iteration%201%20Plan)
 
 [Iteration 2 plan](../../wiki/Iteration%202%20Plan)
+
+[Iteration 3 plan](../../wiki/Iteration%203%20Plan)
