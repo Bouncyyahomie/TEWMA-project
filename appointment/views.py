@@ -1,5 +1,5 @@
 """Views for Django appointment app."""
-from django.shortcuts import render , get_object_or_404, get_list_or_404
+from django.shortcuts import render , get_object_or_404
 from django.views import generic
 from .models import Meeting
 from datetime import date, datetime
