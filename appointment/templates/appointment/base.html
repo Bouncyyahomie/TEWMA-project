@@ -28,17 +28,18 @@
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="input-group col-md-3 ">
-            <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search"
-                   aria-label="Search">
-            <span class="input-group-append">
-              <button class="btn btn-outline-success border-left-0 border" type="submit">
-                    <i class="fa fa-search"></i>
-              </button>
-            </span>
-        </div>
+
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
-            <ul class="nav navbar-nav ml-auto navbar-right">
+            <div class="input-group col-md-3 ml-auto">
+                <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search"
+                       aria-label="Search">
+                <span class="input-group-append">
+                        <button class="btn btn-outline-success border-left-0 border" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+            </div>
+            <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">Profile</a>

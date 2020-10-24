@@ -21,15 +21,15 @@ class Calendar(HTMLCalendar):
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.subject} </li>"
         if day != 0:
-            return f"<td><span class='date'>{day}</span><ul> {meets_in_day} </ul></td>"
-        return '<td></td>'
+            return f"<td><a href='#'><span class='date'>{day}</span></a><ul> {meets_in_day} </ul></td>"
+        return '<td><a></a></td>'
 
     def formatweek(self, theweek, meetings):
         """Return table row HTML tag for each week."""
         week = ''
         for day, weekday in theweek:
             week += self.formatday(day, meetings)
-        return f"<tr> {week} </tr>"
+        return f"<tr><a> {week} </a></tr>"
 
     def formatmonth(self, withyear=True):
         """Return a one month of calendar."""
