@@ -22,7 +22,7 @@ class Calendar(HTMLCalendar):
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.get_html_url} </li>"
         if day != 0:
-            url = reverse("appointment:meet_list",args=(day,))
+            url = reverse("appointment:meet_list",args=(self.year,self.month,day))
             return f"<td><span class='date'><a href={url}>{day}</span><ul> {meets_in_day} </ul></td>"
         return '<td></td>'
 
@@ -31,7 +31,7 @@ class Calendar(HTMLCalendar):
         week = ''
         for day, weekday in theweek:
             week += self.formatday(day, meetings)
-        return f"<tr><a> {week} </a></tr>"
+        return f"<tr>{week}</tr>"
 
     def formatmonth(self, withyear=True):
         """Return a one month of calendar."""
