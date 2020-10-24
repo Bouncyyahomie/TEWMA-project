@@ -45,8 +45,8 @@ class IndexView(generic.ListView):
         context['next_month'] = next_month(this_day)
         return context
 
-def meeting_list(request, day):
-    meetings = Meeting.objects.filter(start_time__day=day)
+def meeting_list(request, year,month,day):
+    meetings = Meeting.objects.filter(start_time__year=year,start_time__month=month, start_time__day=day)
     context = {'meeting': meetings} 
     return render(request, 'appointment/meeting_list.html', context)
 

@@ -22,7 +22,7 @@ class Calendar(HTMLCalendar):
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.get_html_url} </li>"
         if day != 0:
-            url = reverse("appointment:meet_list",args=(day,))
+            url = reverse("appointment:meet_list",args=(self.year,self.month,day))
             return f"<td><span class='date'><a href={url}>{day}</span><ul> {meets_in_day} </ul></td>"
         return '<td></td>'
 
