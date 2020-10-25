@@ -1,5 +1,5 @@
 """Views for Django appointment app."""
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404
 from django.views import generic
 from .models import Meeting
 from datetime import date, datetime
@@ -44,3 +44,14 @@ class IndexView(generic.ListView):
         context['prev_month'] = prev_month(this_day)
         context['next_month'] = next_month(this_day)
         return context
+
+def meeting_list(request, year,month,day):
+    meetings = Meeting.objects.filter(start_time__year=year,start_time__month=month, start_time__day=day).order_by('start_time')
+    context = {'meeting': meetings} 
+    return render(request, 'appointment/meeting_list.html', context)
+
+def detail(request,meeting_id):
+    # meetings = Meeting.objects.get(id=meeting_id)
+    meetings = get_object_or_404(Meeting, pk=meeting_id)
+    context = {'meeting': meetings}
+    return render(request, 'appointment/detail.html', context)

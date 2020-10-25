@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 from calendar import HTMLCalendar
 from .models import Meeting
+from django.urls import reverse
 # from eventcalendar.helper import get_current_user
 
 
@@ -19,9 +20,10 @@ class Calendar(HTMLCalendar):
         meets_per_day = meetings.filter(start_time__day=day)
         meets_in_day = ''
         for meet in meets_per_day:
-            meets_in_day += f"<li> {meet.subject} </li>"
+            meets_in_day += f"<li> {meet.get_html_url} </li>"
         if day != 0:
-            return f"<td><span class='date'>{day}</span><ul> {meets_in_day} </ul></td>"
+            url = reverse("appointment:meet_list",args=(self.year,self.month,day))
+            return f"<td><span class='date'><a href={url}>{day}</span><ul> {meets_in_day} </ul></td>"
         return '<td></td>'
 
     def formatweek(self, theweek, meetings):
@@ -29,7 +31,7 @@ class Calendar(HTMLCalendar):
         week = ''
         for day, weekday in theweek:
             week += self.formatday(day, meetings)
-        return f"<tr> {week} </tr>"
+        return f"<tr>{week}</tr>"
 
     def formatmonth(self, withyear=True):
         """Return a one month of calendar."""
