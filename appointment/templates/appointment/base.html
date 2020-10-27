@@ -67,8 +67,7 @@
         </button>
 
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
-            <div class="input-group col-md-3 ml-auto">
-                <form method="GET" action="{% url 'appointment:search' %}">
+                <form class="input-group col-md-3 ml-auto"  method="GET" action="{% url 'appointment:search' %}">
                     <input class="form-control py-2 border-right-0 border" name="q" value="{{request.GET.q}}" type="search" placeholder="Search..."
                            aria-label="Search">
                     <span class="input-group-append">
@@ -77,7 +76,6 @@
                         </button>
                     </span>
                 </form>
-            </div>
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
