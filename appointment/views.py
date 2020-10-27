@@ -69,7 +69,7 @@ def detail(request, meeting_id):
 def search(request):
     query = request.GET.get('q')
     if query:
-        result = Meeting.objects.filter(Q(subject__icontains=query))
+        result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query))
     else:
         result = Meeting.objects.filter()
 
