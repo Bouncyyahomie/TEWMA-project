@@ -1,12 +1,15 @@
 """Views for Django appointment app."""
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
+
 from .models import Meeting
 from datetime import date, datetime
 from datetime import timedelta
 from .utils import Calendar
 from django.utils.safestring import mark_safe
+from django.db.models import Q
 import calendar
+
 
 def get_date(req_day):
     """Return specific date object if parameter is a date object, return today otherwise."""
@@ -15,11 +18,13 @@ def get_date(req_day):
         return date(year, month, day=1)
     return datetime.today()
 
+
 def prev_month(month):
     first = month.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
+
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
@@ -27,6 +32,7 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
+
 
 class IndexView(generic.ListView):
     """Show a Calendar."""
@@ -44,3 +50,28 @@ class IndexView(generic.ListView):
         context['prev_month'] = prev_month(this_day)
         context['next_month'] = next_month(this_day)
         return context
+
+
+def meeting_list(request, year, month, day):
+    meetings = Meeting.objects.filter(start_time__year=year, start_time__month=month, start_time__day=day).order_by(
+        'start_time')
+    context = {'meeting': meetings}
+    return render(request, 'appointment/meeting_list.html', context)
+
+
+def detail(request, meeting_id):
+    # meetings = Meeting.objects.get(id=meeting_id)
+    meetings = get_object_or_404(Meeting, pk=meeting_id)
+    context = {'meeting': meetings}
+    return render(request, 'appointment/detail.html', context)
+
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        result = Meeting.objects.filter(Q(subject__icontains=query))
+    else:
+        result = Meeting.objects.filter()
+
+    context = {'meeting': result}
+    return render(request, 'appointment/meeting_list.html', context)

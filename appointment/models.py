@@ -22,6 +22,7 @@ class Meeting(models.Model):
         """Return string representative."""
         return self.subject
 
+    @property
     def get_html_url(self):
-        url = reverse("appointment:detail", args=self.id, )
-        return f'<a href="{url}"> {self.title} </a>'
+        url = reverse("appointment:detail", args=(self.id,))
+        return f'<a href="{url}"> {self.subject}</a>'

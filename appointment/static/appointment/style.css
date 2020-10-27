@@ -36,3 +36,24 @@ padding: 0px 5px 0px 20px;
 body {
     padding-top: 65px;
 }
+
+.meeting_list {
+margin: auto;
+width: 100%;
+
+}
+
+.meeting_list th{
+    color: palevioletred;
+    font-size: 25px;
+}
+
+.meeting_list td{
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+.detail p {
+    font-size: 22px;
+    padding-top: 15px;
+}

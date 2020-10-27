@@ -1,5 +1,10 @@
 {% extends "appointment/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h1>{{ user.username }}</h1>
+    <div class="container">
+        <h1>{{ user.username }} Profile</h1>
+        <div class="media">
+        <img src="{{ user.profile.image.url }}" width="300">
+        </div>
+    </div>
 {% endblock content %}
