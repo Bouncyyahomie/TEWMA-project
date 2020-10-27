@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 
-
 class Meeting(models.Model):
     """Django model Object for meeting."""
 
@@ -17,10 +16,12 @@ class Meeting(models.Model):
     location = models.CharField(max_length=100)
     contact = models.CharField(max_length=100)
 
-
     def __str__(self):
         """Return string representative."""
         return self.subject
+
+    def date_meeting(self):
+        return self.start_time.strftime('%d %B %Y')
 
     @property
     def get_html_url(self):
