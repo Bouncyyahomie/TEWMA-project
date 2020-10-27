@@ -4,8 +4,7 @@ from django.conf.urls import url
 
 from . import views
 
-
-app_name='appointment'
+app_name = 'appointment'
 urlpatterns = [
     path('', views.IndexView.as_view(), name="home_page"),
     path("meeting/<int:year>/<int:month>/<int:day>", views.meeting_list, name="meet_list"),
