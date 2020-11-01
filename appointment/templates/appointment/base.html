@@ -39,7 +39,7 @@
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
-                <span class="closebtn">&times;</span>  
+                <span class="closebtn">&times;</span>
                 {{ message }}
             </div>
         {% endfor %}
@@ -47,13 +47,15 @@
     <script>
         var close = document.getElementsByClassName("closebtn");
         var i;
-        
+
         for (i = 0; i < close.length; i++) {
-          close[i].onclick = function(){
-            var div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function(){ div.style.display = "none"; }, 600);
-          }
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.opacity = "0";
+                setTimeout(function () {
+                    div.style.display = "none";
+                }, 600);
+            }
         }
     </script>
     <!-- navigation bar -->
@@ -65,15 +67,15 @@
         </button>
 
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
-            <div class="input-group col-md-3 ml-auto">
-                <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search"
-                       aria-label="Search">
-                <span class="input-group-append">
+                <form class="input-group col-md-3 ml-auto"  method="GET" action="{% url 'appointment:search' %}">
+                    <input class="form-control py-2 border-right-0 border" name="q" value="{{request.GET.q}}" type="search" placeholder="Search..."
+                           aria-label="Search">
+                    <span class="input-group-append">
                         <button class="btn btn-outline-success border-left-0 border" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
-            </div>
+                </form>
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">

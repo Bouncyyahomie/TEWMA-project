@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class = "detail">
-    <h2>Date</h2>
+    <h2>Date : {{ meeting.date_meeting}}</h2>
     <p>Subject : {{meeting.subject}}</p>
     <p>Description : {{meeting.description}}</p>
     <p>Location {{meeting.location}}</p>
     <p>Time : {{meeting.start_time|time:"P"}} - {{meeting.end_time|time:"P"}}</p>
-    <p>Contact {{meeting.contact}}</p>
+    <p>Contact : {{meeting.contact}}</p>
     <input class="btn btn-primary" type="submit" value="Join">
 </div>
 {% endblock %}

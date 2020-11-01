@@ -1,5 +1,5 @@
 coverage
-Django
+Django~=3.1.1
 django-environ
 django-crispy-forms
 Pillow
