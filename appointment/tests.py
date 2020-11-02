@@ -8,10 +8,10 @@ from .models import Meeting
 from django.contrib.auth.models import User
 
 
-# def create_meeting(subject, description, location, start_time, contact, end_time):
-#     time = timezone.now() + datetime.timedelta(days=start_time)
-#     time_end = timezone.now() + datetime.timedelta(days=end_time)
-#     return Meeting.objects.create(subject = subject , description = description, location = location, start_time = time , contact = contact , end_time = time_end)
+def create_meeting(subject, description, location, start_time, contact, end_time):
+    time = timezone.now() + datetime.timedelta(days=start_time)
+    time_end = timezone.now() + datetime.timedelta(days=end_time)
+    return Meeting.objects.create(subject=subject, description=description, location=location, start_time=time, contact=contact, end_time=time_end)
 
 
 class MeetingModelTest(TestCase):
@@ -21,6 +21,15 @@ class MeetingModelTest(TestCase):
     #     time = timezone.now() + datetime.timedelta(days = 30)
     #     future_meeting = Meeting(start_time = time)
     #     self.assertIs(future_meeting.was_published_recently(), False)
+
+    def setUp(self):
+        self.meeting1 = create_meeting("Subject1", "Easy", "BKK", -1, "191", 10)
+
+    def test_str_meeting(self):
+        self.assertEqual(str(self.meeting1), "Subject1")
+
+    def test_get_html_url_from_meeting(self):
+        self.assertEqual(self.meeting1.get_html_url, '<a href="/1/detail"> Subject1</a>')
 
 
 class IndexViewTest(TestCase):
