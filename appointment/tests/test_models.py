@@ -1,11 +1,8 @@
-"""Tests for Django project"""
+"""Models Tests"""
 import datetime
 from django.test import TestCase
 from django.utils import timezone
-from django.urls import reverse
-from .utils import Calendar
-from .models import Meeting
-from django.contrib.auth.models import User
+from appointment.models import Meeting
 
 
 def create_meeting(subject, description, location, start_time, contact, end_time):
@@ -34,11 +31,3 @@ class MeetingModelTest(TestCase):
         """Can get the meeting date?"""
         start_time = timezone.now() + datetime.timedelta(days=-1)
         self.assertEqual(self.meeting1.date_meeting(), start_time.strftime('%d %B %Y'))
-
-class IndexViewTest(TestCase):
-    """Test for TewMa home page."""
-
-    def test_check_default_home_page(self):
-        """If user is not authenticated, show Welcome, AnonymousUser """
-        response = self.client.get(reverse('appointment:home_page'))
-        self.assertContains(response, "Welcome, AnonymousUser")
