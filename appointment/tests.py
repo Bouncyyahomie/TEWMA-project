@@ -8,10 +8,10 @@ from .models import Meeting
 from django.contrib.auth.models import User
 
 
-# def create_meeting(subject, description, location, start_time, contact, end_time):
-#     time = timezone.now() + datetime.timedelta(days=start_time)
-#     time_end = timezone.now() + datetime.timedelta(days=end_time)
-#     return Meeting.objects.create(subject = subject , description = description, location = location, start_time = time , contact = contact , end_time = time_end)
+# def create_meeting(subject, description, location, start_time, contact, end_time): time = timezone.now() +
+# datetime.timedelta(days=start_time) time_end = timezone.now() + datetime.timedelta(days=end_time) return
+# Meeting.objects.create(subject = subject , description = description, location = location, start_time = time ,
+# contact = contact , end_time = time_end)
 
 
 class MeetingModelTest(TestCase):

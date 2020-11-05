@@ -69,9 +69,12 @@ def detail(request, meeting_id):
 def search(request):
     query = request.GET.get('q')
     if query:
-        result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query))
+        if Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)) is not None:
+            result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query))
+        else:
+            result = None
     else:
-        result = Meeting.objects.filter()
+        result = None
 
-    context = {'meeting': result}
-    return render(request, 'appointment/meeting_list.html', context)
+    context = {'meeting': result,'query':query}
+    return render(request, 'appointment/search_result.html', context)

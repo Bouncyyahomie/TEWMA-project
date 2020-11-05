@@ -1,0 +1,32 @@
+{% extends 'appointment/base.html' %}
+
+{% block content %}
+
+    <div>
+        <h2 class="display-6 border-bottom py-3">Results for "{{ query }}"</h2>
+        {% if not meeting %}
+            <td>No result "{{ query }}"</td>
+        {% else %}
+            <table class="meeting_list">
+                <tr>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Time</th>
+                    <th>Detail</th>
+                </tr>
+                {% for meet in meeting %}
+                    <tr>
+                        <td>{{ meet.subject }}</td>
+                        <td>{{ meet.date_meeting }}</td>
+                        <td> {{ meet.location }}</td>
+                        <td>{{ meet.start_time|time:"P" }}</td>
+                        <td><a href="{% url 'appointment:detail' meet.id %}" class="btn btn-outline-info" role="button">see
+                            more</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+
+{% endblock %}
