@@ -1,4 +1,5 @@
 {% extends 'appointment/base.html' %}
+{% load highlight_extra %}
 
 {% block content %}
 
@@ -17,9 +18,9 @@
                 </tr>
                 {% for meet in meeting %}
                     <tr>
-                        <td>{{ meet.subject }}</td>
-                        <td>{{ meet.date_meeting }}</td>
-                        <td> {{ meet.location }}</td>
+                        <td>{{ meet.subject |highlight:query }}</td>
+                        <td>{{ meet.date_meeting  }}</td>
+                        <td> {{ meet.location|highlight:query }}</td>
                         <td>{{ meet.start_time|time:"P" }}</td>
                         <td><a href="{% url 'appointment:detail' meet.id %}" class="btn btn-outline-info" role="button">see
                             more</a></td>

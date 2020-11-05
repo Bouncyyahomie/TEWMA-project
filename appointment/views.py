@@ -1,13 +1,13 @@
 """Views for Django appointment app."""
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.db.models import Q
+from django.utils.safestring import mark_safe
 
 from .models import Meeting
 from datetime import date, datetime
 from datetime import timedelta
 from .utils import Calendar
-from django.utils.safestring import mark_safe
-from django.db.models import Q
 import calendar
 
 
@@ -70,11 +70,12 @@ def search(request):
     query = request.GET.get('q')
     if query:
         if Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)) is not None:
-            result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query))
+            result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)).distinct()
         else:
             result = None
     else:
         result = None
 
-    context = {'meeting': result,'query':query}
+    context = {'meeting': result, 'query': query}
     return render(request, 'appointment/search_result.html', context)
+
