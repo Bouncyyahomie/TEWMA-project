@@ -71,11 +71,12 @@ def search(request):
     if query:
         if Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)) is not None:
             result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)).distinct()
+            count = result.count()
         else:
             result = None
     else:
         result = None
 
-    context = {'meeting': result, 'query': query}
+    context = {'meeting': result, 'query': query, 'count':count}
     return render(request, 'appointment/search_result.html', context)
 

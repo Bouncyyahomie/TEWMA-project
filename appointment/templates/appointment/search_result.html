@@ -4,7 +4,8 @@
 {% block content %}
 
     <div>
-        <h2 class="display-6 border-bottom py-3">Results for "{{ query }}"</h2>
+        <h1 class="display-6 border-bottom py-3">Results for "{{ query}}"</h1>
+        <h5  > {{ count }} results from "{{ query }}"</h5>
         {% if not meeting %}
             <td>No result "{{ query }}"</td>
         {% else %}
