@@ -1,5 +1,4 @@
 """Utility file for Calendar class."""
-from datetime import datetime, timedelta
 from calendar import HTMLCalendar
 from .models import Meeting
 from django.urls import reverse
@@ -7,7 +6,7 @@ from django.urls import reverse
 
 
 class Calendar(HTMLCalendar):
-    """ """
+    """Overwrite some method from HTMLCalendar class."""
 
     def __init__(self, year=None, month=None):
         """Initialize Calendar class."""
@@ -23,7 +22,7 @@ class Calendar(HTMLCalendar):
             meets_in_day += f"<li> {meet.get_html_url} </li>"
         if day != 0:
             if len(meets_per_day) >= 1:
-                url = reverse("appointment:meet_list",args=(self.year,self.month,day))
+                url = reverse("appointment:meet_list", args=(self.year, self.month, day))
                 return f"<td><span class='date'>{day}<a href={url} class='btn btn-outline-info' role='button'> Avaliable </a></span></td>"
             return f"<td><span class='date'>{day}</span></td>"
         return '<td></td>'

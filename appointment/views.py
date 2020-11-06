@@ -20,6 +20,7 @@ def get_date(req_day):
 
 
 def prev_month(month):
+    """Return the previous month from current day."""
     first = month.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
@@ -27,6 +28,7 @@ def prev_month(month):
 
 
 def next_month(d):
+    """Return the next month from current day."""
     days_in_month = calendar.monthrange(d.year, d.month)[1]
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
@@ -53,6 +55,7 @@ class IndexView(generic.ListView):
 
 
 def meeting_list(request, year, month, day):
+    """Render to meeting list of specific day."""
     meetings = Meeting.objects.filter(start_time__year=year, start_time__month=month, start_time__day=day).order_by(
         'start_time')
     context = {'meeting': meetings}
@@ -60,6 +63,7 @@ def meeting_list(request, year, month, day):
 
 
 def detail(request, meeting_id):
+    """Render to meeting's detail page."""
     # meetings = Meeting.objects.get(id=meeting_id)
     meetings = get_object_or_404(Meeting, pk=meeting_id)
     context = {'meeting': meetings}
@@ -67,6 +71,7 @@ def detail(request, meeting_id):
 
 
 def search(request):
+    """Render to meeting list page after search."""
     query = request.GET.get('q')
     if query:
         result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query))

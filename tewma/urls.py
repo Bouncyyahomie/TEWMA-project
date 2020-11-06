@@ -1,4 +1,4 @@
-"""tewma URL Configuration
+"""Tewma Project's URL Configuration.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -27,4 +27,5 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('login/', user_views.LoginFormView.as_view(redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('create/', user_views.create_meet, name='create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,6 @@
 """Config for Django models."""
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
-from django.db.models import Q
 
 
 class Meeting(models.Model):
@@ -17,13 +15,15 @@ class Meeting(models.Model):
     contact = models.CharField(max_length=100)
 
     def __str__(self):
-        """Return string representative."""
+        """Return subject of meeting."""
         return self.subject
 
     def date_meeting(self):
+        """Return string of start time."""
         return self.start_time.strftime('%d %B %Y')
 
     @property
     def get_html_url(self):
+        """Return HTML of detail page."""
         url = reverse("appointment:detail", args=(self.id,))
         return f'<a href="{url}"> {self.subject}</a>'

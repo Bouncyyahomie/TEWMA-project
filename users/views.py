@@ -1,3 +1,4 @@
+"""Django Views for Users."""
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -7,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
 
 def register(request):
+    """Render to register page if user is already logged in, redirect to home page."""
     if request.user.is_authenticated:
         messages.info(request, 'You have to logout before make a new register')
         return redirect('appointment:home_page')
@@ -19,13 +21,21 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form' : form})
+    return render(request, 'users/register.html', {'form': form})
 
 class LoginFormView(SuccessMessageMixin, LoginView):
+    """User login page."""
+
     template_name = 'users/login.html'
     success_url = 'appointment:home_page'
     success_message = "You were successfully logged in."
 
 @login_required
 def profile(request):
+    """Render to profile.html."""
     return render(request, 'users/profile.html')
+
+
+def create_meet(request):
+    """Render to craete.html."""
+    return render(request, 'user/create.html')

@@ -3,6 +3,6 @@ from django.apps import AppConfig
 
 
 class AppointmentConfig(AppConfig):
-    """Config for appointment app"""
+    """Config for appointment app."""
 
     name = 'appointment'
