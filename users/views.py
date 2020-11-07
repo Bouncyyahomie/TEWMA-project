@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserCreateMeetForm
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
@@ -37,5 +37,16 @@ def profile(request):
 
 
 def create_meet(request):
-    """Render to craete.html."""
-    return render(request, 'user/create.html')
+    """Create meeting form."""
+    if request.method == 'POST':
+        form = UserCreateMeetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            subject = form.cleaned_data.get('subject')
+            start_time = form.cleaned_data.get('start_time').strftime('%d %B %Y')
+            messages.success(request, f'{subject} start at {start_time} has been created!!')
+            return redirect('appointment:home_page')
+
+    else:
+        form = UserCreateMeetForm()
+    return render(request, 'users/create_meeting.html', {'form': form})
