@@ -1,6 +1,7 @@
 """Config for Django models."""
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Meeting(models.Model):
@@ -27,3 +28,8 @@ class Meeting(models.Model):
         """Return HTML of detail page."""
         url = reverse("appointment:detail", args=(self.id,))
         return f'<a href="{url}"> {self.subject}</a>'
+
+class UserMeeting(models.Model):
+    """The model for handle users in one meeting"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
