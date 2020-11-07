@@ -22,8 +22,10 @@ class Calendar(HTMLCalendar):
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.get_html_url} </li>"
         if day != 0:
-            url = reverse("appointment:meet_list",args=(self.year,self.month,day))
-            return f"<td><span class='date'><a href={url}>{day}</span><ul> {meets_in_day} </ul></td>"
+            if len(meets_per_day) >= 1:
+                url = reverse("appointment:meet_list",args=(self.year,self.month,day))
+                return f"<td><span class='date'>{day}<a href={url} class='btn btn-outline-info' role='button'> Avaliable </a></span></td>"
+            return f"<td><span class='date'>{day}</span></td>"
         return '<td></td>'
 
     def formatweek(self, theweek, meetings):
