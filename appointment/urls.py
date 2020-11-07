@@ -1,6 +1,5 @@
 """Urls for Django appointment app."""
 from django.urls import path
-from django.conf.urls import url
 
 from . import views
 
@@ -10,4 +9,5 @@ urlpatterns = [
     path("meeting/<int:year>/<int:month>/<int:day>", views.meeting_list, name="meet_list"),
     path("<int:meeting_id>/detail", views.detail, name="detail"),
     path('result/', views.search, name="search"),
+    path('', views.autocomplete, name="autocomplete")
 ]

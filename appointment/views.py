@@ -1,13 +1,14 @@
 """Views for Django appointment app."""
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.db.models import Q
+from django.utils.safestring import mark_safe
 
 from .models import Meeting
 from datetime import date, datetime
 from datetime import timedelta
 from .utils import Calendar
-from django.utils.safestring import mark_safe
-from django.db.models import Q
 import calendar
 
 
@@ -68,10 +69,25 @@ def detail(request, meeting_id):
 
 def search(request):
     query = request.GET.get('q')
+    count = 0
     if query:
-        result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query))
+        if Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)) is not None:
+            result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)).distinct()
+            count = result.count()
+        else:
+            result = None
     else:
-        result = Meeting.objects.filter()
+        result = None
 
-    context = {'meeting': result}
-    return render(request, 'appointment/meeting_list.html', context)
+    context = {'meeting': result, 'query': query, 'count':count}
+    return render(request, 'appointment/search_result.html', context)
+
+
+def autocomplete(request):
+    if 'term' in request.GET:
+        query = Meeting.objects.filter(subject__contains=request.get('term'))
+        meets = list()
+        for meet in query:
+            meets.append(meet.subject)
+        return JsonResponse(meets, safe=False)
+    return render(request, 'appointment/home_page.html')
