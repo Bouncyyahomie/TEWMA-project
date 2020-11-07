@@ -1,4 +1,5 @@
 """Views for Django appointment app."""
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.db.models import Q
@@ -68,6 +69,7 @@ def detail(request, meeting_id):
 
 def search(request):
     query = request.GET.get('q')
+    count = 0
     if query:
         if Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)) is not None:
             result = Meeting.objects.filter(Q(subject__icontains=query) | Q(location__icontains=query)).distinct()
@@ -80,3 +82,12 @@ def search(request):
     context = {'meeting': result, 'query': query, 'count':count}
     return render(request, 'appointment/search_result.html', context)
 
+
+def autocomplete(request):
+    if 'term' in request.GET:
+        query = Meeting.objects.filter(subject__contains=request.get('term'))
+        meets = list()
+        for meet in query:
+            meets.append(meet.subject)
+        return JsonResponse(meets, safe=False)
+    return render(request, 'appointment/home_page.html')
