@@ -33,3 +33,4 @@ class UserMeeting(models.Model):
     """The model for handle users in one meeting"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+    is_join = models.BooleanField(default=False)

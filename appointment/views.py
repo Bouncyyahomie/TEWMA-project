@@ -2,12 +2,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from .models import Meeting
+from .models import Meeting, UserMeeting
 from datetime import date, datetime
 from datetime import timedelta
 from .utils import Calendar
 from django.utils.safestring import mark_safe
 from django.db.models import Q
+from django.contrib import messages
 import calendar
 
 
@@ -80,3 +81,13 @@ def search(request):
 
     context = {'meeting': result}
     return render(request, 'appointment/meeting_list.html', context)
+
+def join(request, meeting_id):
+    """For handle when user click join button"""
+    meeting = get_object_or_404(Meeting, pk=meeting_id)
+    obj, created = UserMeeting.objects.update_or_create(user=request.user, meeting=meeting, defaults={"is_join": True})
+    if created:
+        messages.success(request, "Successfully Join!!")
+    else:
+        messages.error(request, "You have joined!!")
+    return render(request, 'appointment/detail.html', {'meeting': meeting})
