@@ -10,4 +10,5 @@ urlpatterns = [
     path("<int:meeting_id>/detail", views.detail, name="detail"),
     path('result/', views.search, name="search"),
     path('<int:meeting_id>/join', views.join, name='join'),
+    path('', views.autocomplete, name="autocomplete"),
 ]
