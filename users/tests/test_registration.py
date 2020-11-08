@@ -2,6 +2,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 
 
 def create_user(username, email, password):
@@ -53,3 +54,19 @@ class RegistrationTest(TestCase):
                                     'username': 'User1', 'email': 'User6@gmail.com', 'password1': 'isp123456',
                                     'password2': 'isp123456'})
         self.assertEqual(response.status_code, 200)
+
+    def test_response_code_when_authenticated_user_try_to_access_register_page(self):
+        """Authenticated user try to access to registration page, it should redirect to home page."""
+        create_user("User1", "User1@gmail.com", "isp123456")
+        self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
+        response = self.client.post(reverse('register'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_register_messages_when_user_authenticated(self):
+        """When authenticated user try to access to registration page. Show the message for the user."""
+        create_user("User1", "User1@gmail.com", "isp123456")
+        self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
+        response = self.client.post(reverse('register'))
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'You have to logout before make a new register')

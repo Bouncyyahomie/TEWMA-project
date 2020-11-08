@@ -21,7 +21,7 @@ class LogInTest(TestCase):
     def test_can_not_login_with_user_that_not_enter_password(self):
         """Can not login with enter the username but not enter the password."""
         create_user("User1", "User1@gmail.com", "isp123456")
-        response = response = self.client.post(reverse('login'), {'username': 'User1'}, follow=True)
+        response = self.client.post(reverse('login'), {'username': 'User1'}, follow=True)
         self.assertFalse(response.context['user'].is_authenticated)
 
     def test_can_not_login_with_user_that_enter_wrong_password(self):

@@ -7,6 +7,7 @@ from .forms import UserRegisterForm, UserCreateMeetForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
 
+
 def register(request):
     """Render to register page if user is already logged in, redirect to home page."""
     if request.user.is_authenticated:
@@ -23,6 +24,7 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+
 class LoginFormView(SuccessMessageMixin, LoginView):
     """User login page."""
 
@@ -30,12 +32,14 @@ class LoginFormView(SuccessMessageMixin, LoginView):
     success_url = 'appointment:home_page'
     success_message = "You were successfully logged in."
 
+
 @login_required
 def profile(request):
     """Render to profile.html."""
     return render(request, 'users/profile.html')
 
 
+@login_required
 def create_meet(request):
     """Create meeting form."""
     if request.method == 'POST':
@@ -46,7 +50,6 @@ def create_meet(request):
             start_time = form.cleaned_data.get('start_time').strftime('%d %B %Y')
             messages.success(request, f'{subject} start at {start_time} has been created!!')
             return redirect('appointment:home_page')
-
     else:
         form = UserCreateMeetForm()
     return render(request, 'users/create_meeting.html', {'form': form})
