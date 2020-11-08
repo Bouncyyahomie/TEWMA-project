@@ -16,13 +16,21 @@ class Meeting(models.Model):
     contact = models.CharField(max_length=100)
 
     def __str__(self):
-        """Return string representative."""
+        """Return subject of meeting."""
         return self.subject
 
     def date_meeting(self):
+        """Return string of start time."""
         return self.start_time.strftime('%d %B %Y')
 
     @property
     def get_html_url(self):
+        """Return HTML of detail page."""
         url = reverse("appointment:detail", args=(self.id,))
         return f'<a href="{url}"> {self.subject}</a>'
+
+class UserMeeting(models.Model):
+    """The model for handle users in one meeting"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+    is_join = models.BooleanField(default=False)

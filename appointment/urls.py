@@ -9,5 +9,6 @@ urlpatterns = [
     path("meeting/<int:year>/<int:month>/<int:day>", views.meeting_list, name="meet_list"),
     path("<int:meeting_id>/detail", views.detail, name="detail"),
     path('result/', views.search, name="search"),
-    path('', views.autocomplete, name="autocomplete")
+    path('<int:meeting_id>/join', views.join, name='join'),
+    path('', views.autocomplete, name="autocomplete"),
 ]

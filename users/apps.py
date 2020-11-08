@@ -1,3 +1,4 @@
+"""Django App config for Users."""
 from django.apps import AppConfig
 
 
