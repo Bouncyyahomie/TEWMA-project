@@ -1,7 +1,10 @@
 # TEWMA-project
 [![Build Status](https://travis-ci.com/Bouncyyahomie/TEWMA-project.svg?branch=main)](https://travis-ci.com/Bouncyyahomie/TEWMA-project)
 [![codecov](https://codecov.io/gh/Bouncyyahomie/TEWMA-project/branch/main/graph/badge.svg)](https://codecov.io/gh/Bouncyyahomie/TEWMA-project)
-[![Code Quality Score](h)](<PUBLIC-URL>)
+
+[![Code Quality Score](https://www.code-inspector.com/project/15883/status/svg)](https://frontend.code-inspector.com/public/project/15883/TEWMA-project/dashboard)
+[![Code Quality Score](https://www.code-inspector.com/project/15883/score/svg)](https://frontend.code-inspector.com/public/project/15883/TEWMA-project/dashboard)
+
 Django web application for Online tutoring appointment.
 
 ## Getting Started
