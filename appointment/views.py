@@ -13,7 +13,7 @@ import calendar
 
 
 def get_date(req_day):
-    """Return specific date object if parameter is a date object, return today otherwise."""
+    """Return specific date object if parameter is not the date object, return today otherwise."""
     if req_day:
         year, month = (int(x) for x in req_day.split('-'))
         return date(year, month, day=1)
@@ -81,6 +81,7 @@ def search(request):
 
     context = {'meeting': result}
     return render(request, 'appointment/meeting_list.html', context)
+
 
 def join(request, meeting_id):
     """For handle when user click join button"""
