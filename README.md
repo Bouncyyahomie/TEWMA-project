@@ -1,7 +1,7 @@
 # TEWMA-project
 [![Build Status](https://travis-ci.com/Bouncyyahomie/TEWMA-project.svg?branch=main)](https://travis-ci.com/Bouncyyahomie/TEWMA-project)
 [![codecov](https://codecov.io/gh/Bouncyyahomie/TEWMA-project/branch/main/graph/badge.svg)](https://codecov.io/gh/Bouncyyahomie/TEWMA-project)
-
+[![Code Quality Score](h)](<PUBLIC-URL>)
 Django web application for Online tutoring appointment.
 
 ## Getting Started
@@ -42,3 +42,5 @@ Django web application for Online tutoring appointment.
 [Iteration 4 plan](../../wiki/Iteration%204%20Plan)
 
 [Iteration 5 plan](../../wiki/Iteration%205%20Plan)
+
+[Iteration 6 plan](../../wiki/Iteration%206%20Plan)
