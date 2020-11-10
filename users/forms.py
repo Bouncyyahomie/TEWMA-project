@@ -3,9 +3,12 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from appointment.models import Meeting
+# from users.models import Document
+
 
 class DateInput(forms.DateInput):
     input_type = 'datetime-local'
+
 
 class UserRegisterForm(UserCreationForm):
     """User register form."""
@@ -18,9 +21,18 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+
 class UserCreateMeetForm(forms.ModelForm):
     """User create meeting form."""
+
     class Meta:
         model = Meeting
-        fields = ['subject', 'description', 'start_time', 'end_time', 'location', 'contact']
+        fields = ['subject', 'description', 'start_time', 'end_time', 'location', 'contact', 'upload']
         widgets = {'start_time': DateInput(), 'end_time': DateInput()}
+
+
+# class DocumentForm(forms.ModelForm):
+#     """User upload Document"""
+#     class Meta:
+#         model = Document
+#         fields = ['title', 'pdf']

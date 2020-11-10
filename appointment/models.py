@@ -14,6 +14,7 @@ class Meeting(models.Model):
     end_time = models.DateTimeField()
     location = models.CharField(max_length=100)
     contact = models.CharField(max_length=100)
+    upload = models.FileField(upload_to='doc/pdfs')
 
     def __str__(self):
         """Return subject of meeting."""
@@ -28,6 +29,7 @@ class Meeting(models.Model):
         """Return HTML of detail page."""
         url = reverse("appointment:detail", args=(self.id,))
         return f'<a href="{url}"> {self.subject}</a>'
+
 
 class UserMeeting(models.Model):
     """The model for handle users in one meeting"""

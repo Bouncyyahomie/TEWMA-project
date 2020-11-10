@@ -68,7 +68,6 @@ def meeting_list(request, year, month, day):
 
 def detail(request, meeting_id):
     """Render to meeting's detail page."""
-    # meetings = Meeting.objects.get(id=meeting_id)
     meetings = get_object_or_404(Meeting, pk=meeting_id)
     context = {'meeting': meetings}
     return render(request, 'appointment/detail.html', context)

@@ -2,7 +2,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
 from .forms import UserRegisterForm, UserCreateMeetForm
+
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
@@ -43,7 +45,7 @@ def profile(request):
 def create_meet(request):
     """Create meeting form."""
     if request.method == 'POST':
-        form = UserCreateMeetForm(request.POST)
+        form = UserCreateMeetForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             subject = form.cleaned_data.get('subject')
@@ -53,3 +55,5 @@ def create_meet(request):
     else:
         form = UserCreateMeetForm()
     return render(request, 'users/create_meeting.html', {'form': form})
+
+
