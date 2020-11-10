@@ -6,5 +6,16 @@
         <div class="media">
         <img src="{{ user.profile.image.url }}" width="300">
         </div>
+        <form method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ user_update_form|crispy }}
+                {{ profile_update_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Save</button>
+            </div>
+        </form>
     </div>
 {% endblock content %}

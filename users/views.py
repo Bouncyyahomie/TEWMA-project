@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegisterForm, UserCreateMeetForm
+from .forms import UserRegisterForm, UserCreateMeetForm, UserUpdateDetailForm, ProfileUpdateForm
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
@@ -36,7 +36,19 @@ class LoginFormView(SuccessMessageMixin, LoginView):
 @login_required
 def profile(request):
     """Render to profile.html."""
-    return render(request, 'users/profile.html')
+    if request.method == 'POST':
+        user_update_form = UserUpdateDetailForm(request.POST, instance=request.user)
+        profile_update_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_update_form.is_valid() and profile_update_form.is_valid():
+            user_update_form.save()
+            profile_update_form.save()
+            messages.success(request, f'Your profile has been update!!')
+            return redirect('profile')
+    else:
+        user_update_form = UserUpdateDetailForm(instance=request.user)
+        profile_update_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {'user_update_form': user_update_form, 'profile_update_form': profile_update_form}
+    return render(request, 'users/profile.html', context)
 
 
 @login_required

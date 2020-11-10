@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'appointment',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'django_cleanup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
