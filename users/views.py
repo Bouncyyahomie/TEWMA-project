@@ -1,11 +1,12 @@
 """Django Views for Users."""
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegisterForm, UserCreateMeetForm, UserUpdateDetailForm, ProfileUpdateForm
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 
 
 def register(request):
@@ -65,3 +66,8 @@ def create_meet(request):
     else:
         form = UserCreateMeetForm()
     return render(request, 'users/create_meeting.html', {'form': form})
+
+def other_profiles(request, user_id):
+    """View the other profiles."""
+    specific_user = get_object_or_404(User, pk=user_id)
+    return render(request, 'users/other_profiles.html', {'specific_user': specific_user})
