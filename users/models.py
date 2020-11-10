@@ -14,11 +14,3 @@ class Profile(models.Model):
         return f'Profile of {self.user.username}'
 
 
-# class Document(models.Model):
-#     """Document PDF file."""
-#
-#     title = models.CharField(max_length=100)
-#     pdf = models.FileField(upload_to='doc/pdfs')
-#
-#     def __str__(self):
-#         return self.title

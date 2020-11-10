@@ -28,5 +28,4 @@ urlpatterns = [
     path('login/', user_views.LoginFormView.as_view(redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('create/', user_views.create_meet, name='create'),
-    # path('create/', user_views.upload, name='upload'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

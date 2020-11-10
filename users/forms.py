@@ -30,9 +30,3 @@ class UserCreateMeetForm(forms.ModelForm):
         fields = ['subject', 'description', 'start_time', 'end_time', 'location', 'contact', 'upload']
         widgets = {'start_time': DateInput(), 'end_time': DateInput()}
 
-
-# class DocumentForm(forms.ModelForm):
-#     """User upload Document"""
-#     class Meta:
-#         model = Document
-#         fields = ['title', 'pdf']
