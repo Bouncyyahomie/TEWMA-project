@@ -16,5 +16,9 @@
             {% csrf_token %}
             <input class="btn btn-danger" type="submit" value="Leave">
         </form>
+        <form action="{% url 'appointment:participants' meeting.id %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-info" type="submit" value="Participants">
+        </form>
 </div>
 {% endblock %}

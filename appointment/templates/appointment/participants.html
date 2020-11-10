@@ -1,0 +1,12 @@
+{% extends 'appointment/base.html' %}
+
+{% block content %}
+<div>
+    {% if participants %}
+        {% for user in participants %}
+            <a> {{user.user.username}} </a>
+            <br>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

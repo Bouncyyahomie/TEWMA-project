@@ -130,3 +130,9 @@ def leave(request, meeting_id):
     if not obj.is_join: #if the user press the join button before.
         messages.success(request, f"Leaving the appointment, {meeting} is complete.")
     return render(request, 'appointment/detail.html', {'meeting': meeting})
+
+def appointment_participants(request, meeting_id):
+    """Show the participant on each appointment."""
+    meeting = get_object_or_404(Meeting, pk=meeting_id)
+    participants = UserMeeting.objects.filter(meeting=meeting, is_join=True)
+    return render(request, 'appointment/participants.html', {'participants': participants})
