@@ -35,6 +35,9 @@
         .closebtn:hover {
             color: black;
         }
+        .page-name{
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -69,6 +72,28 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <div class="col-md-2">
+                <a class="nav-item" > <span class = "page-name">
+                    {% if "detail" in request.path or "join" in request.path or "leave" in request.path %}
+                        Detail
+                    {% elif "login" in request.path %}
+                        Login
+                    {% elif "meeting" in request.path %}
+                        Meeting List
+                    {% elif "participants" in request.path %}
+                        Participants
+                    {% elif "create" in request.path %}
+                        Create your meeting
+                    {% elif "profile" in request.path %}
+                        Your Profile
+                    {% elif "result" in request.path %}
+                        Search result
+                    {% elif "register" in request.path %}
+                        Register
+                    {% endif %}
+                    </span>
+                </a>
+        </div>
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
             <form class="input-group col-md-3 ml-auto" method="GET" action="{% url 'appointment:search' %}">
                 <input class="form-control py-2 border-right-0 border" name="q" value="{{ request.GET.q }}"
