@@ -90,4 +90,4 @@ class CreateMeetingFormTest(TestCase):
                                                         'start_time': self.time_start1, 'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Econ start at 08 November 2020 has been created!!')
+        self.assertEqual(str(messages[0]), f"Econ start at {self.time_start1.strftime('%d %B %Y')} has been created!!")
