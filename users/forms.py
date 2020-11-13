@@ -24,6 +24,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserCreateMeetForm(forms.ModelForm):
     """User create meeting form."""
+    upload = forms.FileField(required=False)
 
     class Meta:
         model = Meeting
