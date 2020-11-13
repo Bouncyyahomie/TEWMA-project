@@ -14,6 +14,7 @@ class Meeting(models.Model):
     end_time = models.DateTimeField()
     location = models.CharField(max_length=100)
     contact = models.CharField(max_length=100)
+    upload = models.FileField(upload_to='doc/pdfs')
 
     def __str__(self):
         """Return subject of meeting."""
@@ -29,8 +30,16 @@ class Meeting(models.Model):
         url = reverse("appointment:detail", args=(self.id,))
         return f'<a href="{url}"> {self.subject}</a>'
 
+
 class UserMeeting(models.Model):
     """The model for handle users in one meeting"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
     is_join = models.BooleanField(default=False)
+
+    def __str__(self):
+        """Return user status in specific meeting."""
+        if self.is_join:
+            return f"{self.user.username} has joined in {self.meeting.subject}"
+        return f"{self.user.username} has left in {self.meeting.subject}"
+
