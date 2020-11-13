@@ -36,3 +36,10 @@ class UserMeeting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
     is_join = models.BooleanField(default=False)
+
+    def __str__(self):
+        """Return user status in specific meeting."""
+        if self.is_join:
+            return f"{self.user.username} has joined in {self.meeting.subject}"
+        return f"{self.user.username} has left in {self.meeting.subject}"
+

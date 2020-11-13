@@ -12,8 +12,16 @@
     <p>File : <a href="{{ meeting.upload.url }}" class="btn btn-info btn-sm">Download file</a></p>
     {% endif %}
     <form action="{% url 'appointment:join' meeting.id %}" method="post">
-    {% csrf_token %}
-    <input class="btn btn-primary" type="submit" value="Join">
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value="Join">
+    </form>
+    <form action="{% url 'appointment:leave' meeting.id %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="Leave">
+    </form>
+    <form action="{% url 'appointment:participants' meeting.id %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-info" type="submit" value="Participants">
     </form>
 </div>
 {% endblock %}

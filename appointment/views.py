@@ -12,6 +12,9 @@ from .utils import Calendar
 from django.utils.safestring import mark_safe
 from django.db.models import Q
 from django.contrib import messages
+
+from django.contrib.auth.decorators import login_required
+
 import calendar
 
 
@@ -85,18 +88,25 @@ def search(request):
             result = None
     else:
         result = None
-    context = {'meeting': result, 'query': query, 'count':count}
+    context = {'meeting': result, 'query': query, 'count': count}
     return render(request, 'appointment/search_result.html', context)
 
 
+@login_required
 def join(request, meeting_id):
-    """For handle when user click join button"""
+    """For handle when user click join button."""
     meeting = get_object_or_404(Meeting, pk=meeting_id)
-    obj, created = UserMeeting.objects.update_or_create(user=request.user, meeting=meeting, defaults={"is_join": True})
-    if created:
+    user_meeting = UserMeeting.objects.filter(user=request.user).filter(meeting=meeting).first()
+    if user_meeting is None:  # if the user never press the join button before.
+        UserMeeting.objects.create(user=request.user, meeting=meeting, is_join=True)
         messages.success(request, "Successfully Join!!")
-    else:
+        return render(request, 'appointment/detail.html', {'meeting': meeting})
+    if user_meeting.is_join:  # if the user join the meeting already.
         messages.error(request, "You have joined!!")
+        return render(request, 'appointment/detail.html', {'meeting': meeting})
+    obj, created = UserMeeting.objects.update_or_create(user=request.user, meeting=meeting, defaults={"is_join": True})
+    if obj.is_join:  # if the user press the leave button before.
+        messages.success(request, "Successfully Join!!")
     return render(request, 'appointment/detail.html', {'meeting': meeting})
 
 
@@ -108,3 +118,28 @@ def autocomplete(request):
             meets.append(meet.subject)
         return JsonResponse(meets, safe=False)
     return render(request, 'appointment/home_page.html')
+
+
+@login_required
+def leave(request, meeting_id):
+    """Leave from the specific appointment."""
+    meeting = get_object_or_404(Meeting, pk=meeting_id)
+    user_meeting = UserMeeting.objects.filter(user=request.user, meeting=meeting).first()
+    if user_meeting is None:  # if the user never press the join button before.
+        messages.error(request, "You haven't attended the appointment yet.")
+        return render(request, 'appointment/detail.html', {'meeting': meeting})
+    if not user_meeting.is_join:  # if the user leave the meeting already.
+        messages.error(request, "You haven't attended the appointment yet.")
+        return render(request, 'appointment/detail.html', {'meeting': meeting})
+    obj, created = UserMeeting.objects.update_or_create(
+        user=request.user, meeting=meeting, defaults={"is_join": False})
+    if not obj.is_join:  # if the user press the join button before.
+        messages.success(request, f"Leaving the appointment, {meeting} is complete.")
+    return render(request, 'appointment/detail.html', {'meeting': meeting})
+
+
+def appointment_participants(request, meeting_id):
+    """Show the participant on each appointment."""
+    meeting = get_object_or_404(Meeting, pk=meeting_id)
+    participants = UserMeeting.objects.filter(meeting=meeting, is_join=True)
+    return render(request, 'appointment/participants.html', {'participants': participants})
