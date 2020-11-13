@@ -31,10 +31,14 @@ Django web application for Online tutoring appointment.
     python manage.py runserver
      ```
 
-## Document
-[My Requirements](../../wiki/Requirements)
+## Project Document
+[Requirements](../../wiki/Requirements)
 
-[My Vision Statement](../../wiki/Vision%20Statement)
+[Vision Statement](../../wiki/Vision%20Statement)
+
+[Checklist](../../wiki/Checklist)
+
+[Procedure](../../wiki/Procedure)
 
 [Iteration 1 plan](../../wiki/Iteration%201%20Plan)
 
