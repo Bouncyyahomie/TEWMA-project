@@ -1,6 +1,6 @@
 """Utility file for Calendar class."""
 from calendar import HTMLCalendar
-from .models import Meeting
+from .models import Meeting, UserMeeting
 from django.urls import reverse
 # from eventcalendar.helper import get_current_user
 
@@ -23,8 +23,8 @@ class Calendar(HTMLCalendar):
         if day != 0:
             if len(meets_per_day) >= 1:
                 url = reverse("appointment:meet_list", args=(self.year, self.month, day))
-                return f"<td><span class='date'>{day}<a href={url} class='btn btn-outline-info' role='button'> Avaliable </a></span></td>"
-            return f"<td><span class='date'>{day}</span></td>"
+                return f"<td><div class='box'><span class='date'>{day}</div> <a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
+            return f"<td><div class='box'><span class='date'>{day}</span></div><button class='btn btn-outline-light' >Unavailable</button></td>"
         return '<td></td>'
 
     def formatweek(self, theweek, meetings):
