@@ -61,6 +61,19 @@
             }
         }
     </script>
+
+    <!-- sidebar start-->
+    <div class="sidebar">
+        <div style="text-align: center;">
+            <!profile pic>
+            <h4 style="font-size: 20px;">{{ request.user }} </h4>
+        </div>
+        <!--a href="#"><i class="fa fa-desktop" ></i></a-->
+        <a href="#"><i class="fa fa-table"></i>subscriptions</a>
+        <a href="{% url 'create' %}"><i class="fa fa-plus-square"></i>Create meeting</a>
+        <a href="{% url 'profile' %}"><i class="fa fa-sliders-h"></i>Settings</a>
+    </div>
+    <!-- sidebar end-->
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="{% url 'appointment:home_page' %}">TewMa</a>
@@ -68,11 +81,14 @@
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <input type="checkbox" id="check">
+        <label for="">
+            <i class="fas fa-bars" id="sidebar_btn"></i>
+        </label>
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
             <form class="input-group col-md-3 ml-auto" method="GET" action="{% url 'appointment:search' %}">
                 <input class="form-control py-2 border-right-0 border" name="q" value="{{ request.GET.q }}"
-                       id= "meeting" type="search" placeholder="Search..."
+                       id="meeting" type="search" placeholder="Search..."
                        aria-label="Search">
                 <span class="input-group-append">
                         <button class="btn btn-outline-success border-left-0 border" type="submit">
@@ -106,14 +122,16 @@
     {% block content %}{% endblock %}
 </div>
 </body>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
-            type="text/javascript"></script>
-    <script>
-  $( function() {
-    $( "#meet" ).autocomplete({
-      source:{% url 'appointment:autocomplete' %},
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
+        type="text/javascript"></script>
+<script>
+    $(function () {
+        $("#meet").autocomplete({
+            source:{% url 'appointment:autocomplete' %},
+        });
     });
-  } );
-  </script>
+</script>
+
+
 </html>
