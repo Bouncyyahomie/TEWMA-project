@@ -6,5 +6,15 @@
         <div class="media">
         <img src="{{ specific_user.profile.image.url }}" width="300">
         </div>
+        <p><b>University : </b>{{ specific_user.profile.university }}</p>
+        <p><b>Address : </b>{{ specific_user.profile.address }}</p>
+        {% if joining_meet %}
+            <h5> What meetings this user has attended? </h5>
+            {% for meeting in joining_meet %}
+            <div class="list-group">
+                <a href="{% url 'appointment:detail' meeting.meeting.id %}" class="list-group-item list-group-item-action">{{ meeting.meeting.subject }}</a>
+            </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock content %}
