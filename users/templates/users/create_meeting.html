@@ -1,8 +1,9 @@
 {% extends "appointment/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <input type="submit" value="Save">
 </form>
 {% endblock content %}
