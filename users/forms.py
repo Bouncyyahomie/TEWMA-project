@@ -3,7 +3,10 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from appointment.models import Meeting
+
+# from users.models import Document
 from .models import Profile
+
 
 class DateInput(forms.DateInput):
     input_type = 'datetime-local'
@@ -23,12 +26,14 @@ class UserRegisterForm(UserCreationForm):
 
 class UserCreateMeetForm(forms.ModelForm):
     """User create meeting form."""
+    upload = forms.FileField(required=False)
+
     class Meta:
         model = Meeting
-        fields = ['subject', 'description', 'start_time', 'end_time', 'location', 'contact']
+        fields = ['subject', 'description', 'start_time', 'end_time', 'location', 'contact', 'upload']
         widgets = {'start_time': DateInput(), 'end_time': DateInput()}
 
-
+        
 class UserUpdateDetailForm(forms.ModelForm):
     """Update user detail form."""
     email = forms.EmailField()
@@ -45,3 +50,4 @@ class ProfileUpdateForm(forms.ModelForm):
         """Field for change the image"""
         model = Profile
         fields = ['image']
+

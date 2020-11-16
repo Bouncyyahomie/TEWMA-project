@@ -18,23 +18,31 @@ Django web application for Online tutoring appointment.
     ```
     git clone https://github.com/Bouncyyahomie/TEWMA-project.git
     ```
-2. run this command to install all require packages.
+2. change your directory into project's directory.
+    ```
+    cd TEWMA-project
+    ```
+3. run this command to install all require packages.
     ``` 
     pip install -r requirements.txt
     ```
-3. run this command to migrate the database.
+4. run this command to migrate the database.
     ```
     python manage.py migrate
     ```
-4. start running the server by this command.
+5. start running the server by this command.
     ```
     python manage.py runserver
      ```
 
-## Document
-[My Requirements](../../wiki/Requirements)
+## Project Document
+[Requirements](../../wiki/Requirements)
 
-[My Vision Statement](../../wiki/Vision%20Statement)
+[Vision Statement](../../wiki/Vision%20Statement)
+
+[Checklist](../../wiki/Checklist)
+
+[Procedure](../../wiki/Procedure)
 
 [Iteration 1 plan](../../wiki/Iteration%201%20Plan)
 
