@@ -2,9 +2,10 @@
 
 {% block content %}
 <div>
+    <h1>Participants</h1>
     {% if participants %}
         {% for user in participants %}
-            <a href="{% url 'other_profiles' user.user.id %}" target="_blank"> <img src="{{ user.user.profile.image.url }}" width="50"></a>
+            <a href="{% url 'other_profiles' user.user.id %}" target="_blank"> <img src="{{ user.user.profile.image.url }}" width="50px;"></a>
             <a href="{% url 'other_profiles' user.user.id %}" target="_blank"> {{ user.user.username }}</a>
             <br>
         {% endfor %}
