@@ -2,12 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from django.core.files.storage import FileSystemStorage
-from .forms import UserRegisterForm, UserCreateMeetForm
-
 from .forms import UserRegisterForm, UserCreateMeetForm, UserUpdateDetailForm, ProfileUpdateForm
-
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
@@ -61,7 +56,7 @@ def profile(request):
 def create_meet(request):
     """Create meeting form."""
     if request.method == 'POST':
-        form = UserCreateMeetForm(request.POST, request.FILES)
+        form = UserCreateMeetForm(request.POST)
         if form.is_valid():
             form.save()
             subject = form.cleaned_data.get('subject')
@@ -76,4 +71,3 @@ def other_profiles(request, user_id):
     """View the other profiles."""
     specific_user = get_object_or_404(User, pk=user_id)
     return render(request, 'users/other_profiles.html', {'specific_user': specific_user})
-

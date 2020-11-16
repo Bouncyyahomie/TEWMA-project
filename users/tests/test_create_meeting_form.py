@@ -91,5 +91,3 @@ class CreateMeetingFormTest(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), f"Econ start at {self.time_start1.strftime('%d %B %Y')} has been created!!")
-        self.assertEqual(str(messages[0]), f"Econ start at {self.time_start1.strftime('%d %B %Y')} has been created!!")
-
