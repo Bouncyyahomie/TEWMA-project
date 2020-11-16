@@ -45,3 +45,4 @@ class ProfileUpdateForm(forms.ModelForm):
         """Field for change the image"""
         model = Profile
         fields = ['image', 'university', 'address']
+
