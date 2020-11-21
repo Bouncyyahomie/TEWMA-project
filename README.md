@@ -7,38 +7,12 @@
 
 Django web application for Online tutoring appointment.
 
-## Getting Started
-
-|    Name    | Required version(s) |
-| :--------: | :-----------------: |
-|   Python   |   3.7 or higher   |
-|   Django   |   3.1 or higher  |
-
-1. clone this repo to your computer.
-    ```
-    git clone https://github.com/Bouncyyahomie/TEWMA-project.git
-    ```
-2. change your directory into project's directory.
-    ```
-    cd TEWMA-project
-    ```
-3. run this command to install all require packages.
-    ``` 
-    pip install -r requirements.txt
-    ```
-4. run this command to migrate the database.
-    ```
-    python manage.py migrate
-    ```
-5. start running the server by this command.
-    ```
-    python manage.py runserver
-     ```
-
 ## Project Document
 [Requirements](../../wiki/Requirements)
 
 [Vision Statement](../../wiki/Vision%20Statement)
+
+[Instructions](INSTALL.md)
 
 [Checklist](../../wiki/Checklist)
 
