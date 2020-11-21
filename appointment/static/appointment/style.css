@@ -1,36 +1,36 @@
 .calendar {
-width: 98%;
-margin: auto;
-font-size: 13px;
+    width: 98%;
+    margin: auto;
+    font-size: 13px;
 }
 
 .calendar tr, .calendar td {
-border: 1px solid black;
+    border: 1px solid black;
 }
 
 .calendar th {
-padding: 10px;
-text-align: center;
-font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
 }
 
 .calendar td {
-width: 200px;
-height: 150px;
-padding: 20px 0px 0px 5px;
+    width: 200px;
+    height: 150px;
+    padding: 20px 0px 0px 5px;
 }
 
 .month {
-font-size: 25px;
+    font-size: 25px;
 }
 
 .date {
-font-size: 16px;
+    font-size: 16px;
 }
 
 ul {
-height: 100%;
-padding: 0px 5px 0px 20px;
+    height: 100%;
+    padding: 0px 5px 0px 20px;
 }
 
 body {
@@ -40,17 +40,21 @@ body {
 }
 
 .meeting_list {
-margin: auto;
-width: 100%;
+    margin: auto;
+    width: 100%;
 
 }
 
-.meeting_list th{
+.main-container{
+    margin-left: 70px;
+}
+
+.meeting_list th {
     color: palevioletred;
     font-size: 25px;
 }
 
-.meeting_list td{
+.meeting_list td {
     padding-top: 15px;
     font-size: 20px;
 }
@@ -60,60 +64,209 @@ width: 100%;
     padding-top: 15px;
 }
 
-.sidebar{
-    background: #2F323A;
-    margin-top: -20px ;
-    padding-top: 30px;
-    position: fixed;
-    left: 0;
-    width: 250px;
-    height: 100%;
+.navbar-default {
+    background-color: darkslategrey;
+    margin-left: 200px;
 }
 
-.sidebar .profile_image{
-    width: 100px;
-    height: 100px;
+.sidebar {
+    width: 200px;
+    background-color: #497e7e;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    white-space: nowrap;
+    height: calc(100% - 9%);
+    z-index: 1;
+    border-right: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.sidebar .navbar .side-menu-container {
+    overflow: hidden;
+}
+
+.sidebar .navbar {
+    border: none;
+    margin-left: 0;
+    background-color: inherit;
+}
+
+.sidebar .navbar-header {
+    width: 100%;
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 20px;
+}
+
+.sidebar .navbar .profile_image {
+    width: 150px;
+    height: 150px;
     border-radius: 100px;
     margin-bottom: 10px;
 }
 
-.sidebar h4{
+.sidebar .navbar .h4 {
     color: palevioletred;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.sidebar a{
+.sidebar .navbar a {
+    overflow: hidden;
     color: aliceblue;
     display: block;
     width: 100%;
-    line-height: 60px;
+    line-height: 38px;
     text-decoration: none;
-    padding-left: 40px;
+    box-sizing: border-box;
+    transition-property: background;
+}
+
+.sidebar .navbar .side-menu-container a {
+    overflow: hidden;
+    font-size: 16px;
+    color: aliceblue;
+    display: block;
+    position: relative;
+    padding: 10px 45px 20px 0px;
     box-sizing: border-box;
     transition: 0.3s;
     transition-property: background;
 }
 
-.sidebar a:hover{
+.sidebar .navbar .side-menu-container a:hover {
     background: palevioletred;
 }
 
-.sidebar i{
+.sidebar .navbar i {
     padding-right: 10px;
 }
 
-label #sidebar_btn{
-    z-index: 1;
-    color: #fff;
-    position: fixed;
-    cursor: pointer;
-    font-size: 60px;
-    margin: 5px 0;
-    transition: 0.5s;
-    transition-property: color;
+.sidebar, .main-nav{
+    -moz-animation: slidein 300ms forwards;
+    -o-animation: slidein 300ms forwards;
+    -webkit-animation: slidein 300ms forwards;
+    animation: slidein 300ms forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
-label #sidebar_btn:hover{
-    color: palevioletred;
+.sidebar.collapse {
+    -moz-animation: slideout 300ms forwards;
+    -o-animation: slideout 300ms forwards;
+    -webkit-animation: slideout 300ms forwards;
+    animation: slideout 300ms forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
+
+.sidebar.collapse .navbar {
+    width: 70px;
+}
+
+.sidebar.collapse .navbar .profile img,
+.sidebar.collapse .navbar .profile p,
+.sidebar.collapse .navbar a span {
+    display: none;
+}
+
+@-moz-keyframes slidein {
+    0% {
+      left: -200px;
+    }
+    100% {
+      left: 0;
+    }
+  }
+  @-webkit-keyframes slidein {
+    0% {
+      left: -200px;
+    }
+    100% {
+      left: 0;
+    }
+  }
+  @keyframes slidein {
+    0% {
+      left: -200px;
+    }
+    100% {
+      left: 0;
+    }
+  }
+  @-moz-keyframes slideout {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: -200px;
+    }
+  }
+  @-webkit-keyframes slideout {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: -200px;
+    }
+  }
+  @keyframes slideout {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: -200px;
+    }
+  }
+
+  @-moz-keyframes bodyslidein {
+    0% {
+      left: 0;
+    }
+    100% {
+      margin-left: 200px;
+    }
+  }
+  @-webkit-keyframes bodyslidein {
+    0% {
+      left: 0;
+    }
+    100% {
+      left:0
+    }
+  }
+  @keyframes bodyslidein {
+    0% {
+      margin-left: 0;
+    }
+    100% {
+      margin-left: 200px;
+    }
+  }
+  @-moz-keyframes bodyslideout {
+    0% {
+      margin-left: 200px;
+    }
+    100% {
+      margin-right: 0;
+    }
+  }
+  @-webkit-keyframes bodyslideout {
+    0% {
+      margin-left: 200px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }
+  @keyframes bodyslideout {
+    0% {
+      margin-left: 200px;
+    }
+    100% {
+      margin-left: 0;
+    }
+  }

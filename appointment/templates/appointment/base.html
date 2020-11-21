@@ -13,6 +13,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'appointment/style.css' %}">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"
           media="all"/>
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
+            type="text/javascript"></script>
     <title>TewMa</title>
 
     <style>
@@ -62,73 +67,96 @@
         }
     </script>
 
-    <!-- sidebar start-->
-    <div class="sidebar">
-        <div style="text-align: center;">
-            <!profile pic>
-            <h4 style="font-size: 20px;">{{ request.user }} </h4>
-        </div>
-        <!--a href="#"><i class="fa fa-desktop" ></i></a-->
-        <a href="#"><i class="fa fa-table"></i>subscriptions</a>
-        <a href="{% url 'create' %}"><i class="fa fa-plus-square"></i>Create meeting</a>
-        <a href="{% url 'profile' %}"><i class="fa fa-sliders-h"></i>Settings</a>
-    </div>
-    <!-- sidebar end-->
     <!-- navigation bar -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="{% url 'appointment:home_page' %}">TewMa</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <input type="checkbox" id="check">
-        <label for="">
-            <i class="fas fa-bars" id="sidebar_btn"></i>
-        </label>
-        <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
-            <form class="input-group col-md-3 ml-auto" method="GET" action="{% url 'appointment:search' %}">
-                <input class="form-control py-2 border-right-0 border" name="q" value="{{ request.GET.q }}"
-                       id="meeting" type="search" placeholder="Search..."
-                       aria-label="Search">
-                <span class="input-group-append">
+    <div class="main-nav">
+        <nav class="navbar navbar-expand-md navbar-default navbar-dark fixed-top">
+            <a class="navbar-brand " href="{% url 'appointment:home_page' %}"> TewMa </a>
+            <button type="button" class="sidebar-btn btn navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="ic fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
+                <form class="input-group col-md-3 ml-auto" method="GET" action="{% url 'appointment:search' %}">
+                    <input class="form-control py-2 border-right-0 border" name="q" value="{{ request.GET.q }}"
+                           id="meeting" type="search" placeholder="Search..."
+                           aria-label="Search">
+                    <span class="input-group-append">
                         <button class="btn btn-outline-success border-left-0 border" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
-            </form>
-            <ul class="nav navbar-nav">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create' %}">Create meeting</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">SignUp</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
+                </form>
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">SignUp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!--sidebar start-->
+    <!--NAV SIDEBAR-->
+    <div class="sidebar" id="sidebar">
+        <nav class="navbar navbar-default navbar-dark" role="navigation">
+            <div class="navbar-header">
+                <div class="brand-wrapper">
+                    <!-- Brand -->
+                    <div class="brand-name-wrapper" style="text-align: center">
+                        <a class="navbar-brand" href="{% url 'appointment:home_page' %}">
+                            TewMa
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <img src="{{ user.profile.image.url }}" class="profile_image" alt="">
+                <h4 style="font-size: 25px; color: aliceblue">{{ request.user }} </h4>
+            </div>
+            <!-- Main Menu -->
+            <div class="side-menu-container">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
+                        <li><a href="#"><i class="fa fa-table"></i>Subscriptions</a></li>
+                        <li><a href="{% url 'create' %}"><i class="fa fa-plus-square"></i>Create meeting</a></li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">SignUp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+        </nav>
+    </div>
+    <!--sidebar end-->
 
-        </div>
-    </nav>
     {% block content %}{% endblock %}
 </div>
 </body>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
-        type="text/javascript"></script>
 <script>
     $(function () {
         $("#meet").autocomplete({
             source:{% url 'appointment:autocomplete' %},
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.sidebar-btn').click(function () {
+            $('.sidebar').toggleClass('collapse');
         });
     });
 </script>

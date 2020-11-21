@@ -1,21 +1,23 @@
 {% extends "appointment/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container">
-        <h1>{{ user.username }} Profile</h1>
-        <div class="media">
-        <img src="{{ user.profile.image.url }}" width="300">
-        </div>
-        <form method="POST" enctype="multipart/form-data"> 
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profile Info</legend>
-                {{ user_update_form|crispy }}
-                {{ profile_update_form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Save</button>
+    <div class="main-container">
+        <div class="container">
+            <h1>{{ user.username }} Profile</h1>
+            <div class="media">
+                <img src="{{ user.profile.image.url }}" width="300">
             </div>
-        </form>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Profile Info</legend>
+                    {{ user_update_form|crispy }}
+                    {{ profile_update_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock content %}
