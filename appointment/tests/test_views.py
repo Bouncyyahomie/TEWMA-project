@@ -72,11 +72,11 @@ class MeetingDetailView(TestCase):
     """Test for meeting detail view."""
 
     def test_can_see_the_detail_of_end_meeting(self):
-        """Even after the meeting's closing days, the user still see that meeting."""
+        """If the user try to access an ended meeting. redirect to the home page."""
         meeting1 = create_meeting("Subject1", "Easy", "BKK", -5, "191", -1)
         meeting_detail_url = reverse('appointment:detail', args=(meeting1.id,))
         response = self.client.get(meeting_detail_url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_can_see_the_detail_of_future_meeting(self):
         """User can see future meeting."""
