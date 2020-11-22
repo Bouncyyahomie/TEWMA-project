@@ -2,6 +2,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Meeting(models.Model):
@@ -23,6 +24,11 @@ class Meeting(models.Model):
     def date_meeting(self):
         """Return string of start time."""
         return self.start_time.strftime('%d %B %Y')
+
+    def is_ended(self):
+        """Is meeting it end now"""
+        now = timezone.now()
+        return now >= self.end_time
 
     @property
     def get_html_url(self):
