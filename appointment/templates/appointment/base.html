@@ -40,6 +40,7 @@
         .closebtn:hover {
             color: black;
         }
+
     </style>
 </head>
 <body>
@@ -52,6 +53,7 @@
             </div>
         {% endfor %}
     {% endif %}
+
     <script>
         var close = document.getElementsByClassName("closebtn");
         var i;
@@ -68,15 +70,19 @@
     </script>
 
     <!-- navigation bar -->
-    <div class="main-nav">
-        <nav class="navbar navbar-expand-md navbar-default navbar-dark fixed-top">
-            <a class="navbar-brand " href="{% url 'appointment:home_page' %}"> TewMa </a>
-            <button type="button" class="sidebar-btn btn navbar-toggle collapsed" data-toggle="collapse"
+    <!-- <div class="main-nav"> -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <button type="button" class="sidebar-btn btn navbar-toggle collapsed bg-dark" data-toggle="collapse"
                     data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+                    aria-expanded="false" aria-controls="navbar"
+                    style="margin-right: 1rem; outline:none;">
                 <span class="sr-only">Toggle navigation</span>
-                <i class="ic fa fa-bars"></i>
+                <i class="ic fa fa-bars" style="color: white;"></i>
             </button>
+
+            <a class="navbar-brand " href="{% url 'appointment:home_page' %}"> TewMa </a>
+
+
             <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
                 <form class="input-group col-md-3 ml-auto" method="GET" action="{% url 'appointment:search' %}">
                     <input class="form-control py-2 border-right-0 border" name="q" value="{{ request.GET.q }}"
@@ -107,8 +113,8 @@
     </div>
     <!--sidebar start-->
     <!--NAV SIDEBAR-->
-    <div class="sidebar" id="sidebar">
-        <nav class="navbar navbar-default navbar-dark" role="navigation">
+    <div class="sidebar" id="sidebar" style="background-color:grey;">
+        <nav class="navbar navbar-default navbar-dark " role="navigation">
             <div class="navbar-header">
                 <div class="brand-wrapper">
                     <!-- Brand -->
@@ -124,6 +130,7 @@
                 <h4 style="font-size: 25px; color: aliceblue">{{ request.user }} </h4>
             </div>
             <!-- Main Menu -->
+
             <div class="side-menu-container">
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
@@ -138,13 +145,18 @@
                             <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
                     {% endif %}
-        </nav>
+            </nav>
     </div>
     <!--sidebar end-->
 
-    {% block content %}{% endblock %}
+    <div style="border: 10px solid black; padding: 20px">
+        {% block content %}
+    
+        {% endblock %}
+    </div>
+
 </div>
-</body>
+
 <script>
     $(function () {
         $("#meet").autocomplete({
@@ -161,5 +173,5 @@
     });
 </script>
 
-
+</body>
 </html>
