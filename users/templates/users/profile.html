@@ -19,10 +19,7 @@
     </div>
         <div>
             <h1></h1>
-            <form method="POST" action="{% url 'edit_profile' %}">
-                {% csrf_token %}
-                <input class="btn btn-info" type="submit" value="edit profile">
-            </form>
+            <a href="{% url 'edit_profile' %}" class="btn btn-primary"> edit profile</a>
         </div>
 </div>
 {% endblock content %}

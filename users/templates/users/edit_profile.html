@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>{{ user.username }} Profile</h1>
-<form method="POST" enctype="multipart/form-data" action="{% url 'profile' %}"> 
+<form method="POST" enctype="multipart/form-data"> 
     {% csrf_token %}
     <fieldset class="form-group">
         <legend class="border-bottom mb-4">Edit Profile</legend>
@@ -14,4 +14,5 @@
     <div class="form-group">
         <button class="btn btn-outline-info" type="submit">Save</button>
     </div>
-{% endblock %}
+</form>
+{% endblock content%}

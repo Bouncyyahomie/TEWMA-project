@@ -42,7 +42,7 @@ class LoginFormView(SuccessMessageMixin, LoginView):
 @login_required
 def edit_profile(request):
     """Render to profile.html."""
-    if request.method != 'POST':
+    if request.method == 'POST':
         user_update_form = UserUpdateDetailForm(request.POST, instance=request.user)
         profile_update_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if user_update_form.is_valid() and profile_update_form.is_valid():
