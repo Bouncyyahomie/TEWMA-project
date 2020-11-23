@@ -1,21 +1,28 @@
 {% extends "appointment/base.html" %}
-{% load crispy_forms_tags %}
+{% load iterator %}
 {% block content %}
-    <div class="container">
-        <h1>{{ user.username }} Profile</h1>
-        <div class="media">
-        <img src="{{ user.profile.image.url }}" width="300">
-        </div>
-        <form method="POST" enctype="multipart/form-data"> 
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profile Info</legend>
-                {{ user_update_form|crispy }}
-                {{ profile_update_form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Save</button>
-            </div>
-        </form>
+<div class="container">
+    <h1>{{ user.username }} Profile</h1>
+    <div class="media">
+    <img src="{{ user.profile.image.url }}" width="300">
     </div>
+    <legend class="border-bottom mb-4">Profile Info</legend>
+    <div class = "profile-container">
+        <table>
+            {% for detail in user_profile %}
+            <tr>
+                <td>{{profile_info|iterator:forloop.counter0}}:</td>
+                <td>{{detail}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+        <div>
+            <h1></h1>
+            <form method="POST" action="{% url 'edit_profile' %}">
+                {% csrf_token %}
+                <input class="btn btn-info" type="submit" value="edit profile">
+            </form>
+        </div>
+</div>
 {% endblock content %}

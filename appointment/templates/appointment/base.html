@@ -13,14 +13,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'appointment/style.css' %}">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"
           media="all"/>
-    <title>TewMa</title>
-</head>
-<script> 
-    function display_c(){
-    var refresh=1000; // Refresh rate in milli seconds
-    myTime=setTimeout('display_ct()', refresh)
-    }
     
+    <title>TewMa</title>
+    <script type="text/javascript">
+        function display_c(){
+        var refresh=1000; // Refresh rate in milli seconds
+        myTime=setTimeout('display_ct()', refresh)
+        }
+        
     function display_ct() {
         let thisDay = new Date()
         let hours = thisDay.getHours();
@@ -30,15 +30,19 @@
             hours = hours -12;
         }
         let minutes = thisDay.getMinutes();
+        if (minutes < 10){
+            minutes = `0${minutes}`
+        }
         let now = `${hours}:${minutes} ${postFix}`
         document.getElementById('time').innerHTML = now;
         display_c();
         }
-    </script>
+        </script>
+
+</head>
+
 <body onload ="display_ct()">
 <div class="container">
-
-    <p>Time:  <span id="time"></span></p>
 
     {% if messages %}
         {% for message in messages %}
@@ -128,9 +132,12 @@
 
         </div>
     </nav>
-    {% block content %}{% endblock %}
+    <p>Time:  <span id="time"></span></p>
+    {% block content %}
+    {% endblock %}
 </div>
 </body>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
             type="text/javascript"></script>
