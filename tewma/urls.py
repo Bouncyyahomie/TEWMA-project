@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('appointment.urls')),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
+    path("profile/edit_profile/", user_views.edit_profile, name='edit_profile'),
     path('login/', user_views.LoginFormView.as_view(redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('create/', user_views.create_meet, name='create'),

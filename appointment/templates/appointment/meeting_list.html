@@ -3,7 +3,7 @@
 {% block content %}
 
 <div>
-<table class = "meeting_list">
+<table class = "meeting-list">
     <tr>
         <th>Subject</th>
         <th>Date</th>
@@ -14,7 +14,7 @@
     {% for meet in meeting %}
     <tr>
         <td>{{meet.subject}}</td>
-        <td>{{ meet.start_time|date:"D d M Y" }}</td>
+        <td>{{ meet.start_time|date:"D d M" }}</td>
         <td> {{ meet.location }}</td>
         <td>{{meet.start_time|time:"P"}}</td>
         <td><a href="{% url 'appointment:detail' meet.id%}" class="btn btn-outline-info" role="button">see more</a></td>

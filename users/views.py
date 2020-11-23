@@ -2,12 +2,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django import template
 from django.core.files.storage import FileSystemStorage
 from .forms import UserRegisterForm, UserCreateMeetForm
 
 from .forms import UserRegisterForm, UserCreateMeetForm, UserUpdateDetailForm, ProfileUpdateForm
-
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
@@ -41,7 +40,7 @@ class LoginFormView(SuccessMessageMixin, LoginView):
 
 
 @login_required
-def profile(request):
+def edit_profile(request):
     """Render to profile.html."""
     if request.method == 'POST':
         user_update_form = UserUpdateDetailForm(request.POST, instance=request.user)
@@ -55,7 +54,7 @@ def profile(request):
         user_update_form = UserUpdateDetailForm(instance=request.user)
         profile_update_form = ProfileUpdateForm(instance=request.user.profile)
     context = {'user_update_form': user_update_form, 'profile_update_form': profile_update_form}
-    return render(request, 'users/profile.html', context)
+    return render(request, 'users/edit_profile.html', context)
 
 
 @login_required
@@ -78,4 +77,13 @@ def other_profiles(request, user_id):
     specific_user = get_object_or_404(User, pk=user_id)
     joining_meet = UserMeeting.objects.filter(user=specific_user, is_join=True)
     return render(request, 'users/other_profiles.html', {'specific_user': specific_user, 'joining_meet': joining_meet})
+
+@login_required
+def profile(request):
+    """Edit your profiles."""
+    profile_info = ["Username", "Email", "University", "Address"]
+    user_profile = [request.user.username, request.user.email, request.user.profile.university, request.user.profile.address]
+    context = {"user_profile":user_profile, "profile_info": profile_info}
+
+    return render(request, 'users/profile.html',context)
 

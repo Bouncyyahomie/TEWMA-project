@@ -1,3 +1,25 @@
+.alert {
+  opacity: 1;
+  transition: opsacity 0.6s; /* 600ms to fade out */
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+.page-name{
+  color: white;
+}
 .calendar {
 width: 98%;
 margin: auto;
@@ -17,7 +39,7 @@ font-size: 18px;
 .calendar td {
 width: 200px;
 height: 150px;
-padding: 20px 0px 0px 5px;
+padding: 0px 0px 0px 5px;
 }
 
 .month {
@@ -34,27 +56,43 @@ padding: 0px 5px 0px 20px;
 }
 
 body {
-    padding-top: 65px;
+padding-top: 65px;
+font-size: 18px;
 }
 
-.meeting_list {
+.meeting-list {
 margin: auto;
 width: 100%;
 
 }
 
-.meeting_list th{
-    color: palevioletred;
-    font-size: 25px;
+.meeting-list th{
+color: palevioletred;
+font-size: 25px;
 }
 
-.meeting_list td{
-    padding-top: 15px;
-    font-size: 20px;
+.meeting-list td{
+padding-top: 15px;
 }
 
-.detail p {
-    font-size: 22px;
-    padding-top: 15px;
+.box{
+margin-bottom: 40px;
 }
 
+.detail-container{
+margin-bottom: 10px;
+margin-top: 10px;
+}
+.btn-primary, .btn-danger, .btn-info{
+margin: 10px 0px 10px 0px;
+}
+
+.profile-container{
+  white-space: pre-line;
+  width: 100%;
+
+}
+.navbar{
+  font-size: 16px;
+  font-weight: bold;
+}
