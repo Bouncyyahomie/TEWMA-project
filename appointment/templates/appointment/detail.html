@@ -12,18 +12,17 @@
     <p>File : <a href="{{ meeting.upload.url }}" class="btn btn-info btn-sm">Download file</a></p>
     {% endif %}
     <div class="button-container">
-        <form action="{% url 'appointment:join' meeting.id %}" method="post">
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Join">
-        </form>
-        <form action="{% url 'appointment:leave' meeting.id %}" method="post">
-            {% csrf_token %}
-            <input class="btn btn-danger" type="submit" value="Leave">
-        </form>
-        <form action="{% url 'appointment:participants' meeting.id %}" method="post">
-            {% csrf_token %}
-            <input class="btn btn-info" type="submit" value="Participants">
-        </form>
+        {% if user.is_authenticated %}
+        <a class="btn btn-outline-primary" href="{% url 'appointment:join' meeting.id %}">Join</a>
+        <a class="btn btn-outline-danger" href="{% url 'appointment:leave' meeting.id %}">Leave</a>
+        {% endif %}
+        <a class="btn btn-outline-info" href="{% url 'appointment:participants' meeting.id %}">Participants</a>
+        {% if meeting.host == user %}
+        <div>
+            <a class="btn btn-primary" href="{% url 'appointment:edit-meeting' meeting.id %}">Edit</a>
+            <a class="btn btn-danger" href="{% url 'appointment:delete-meeting' meeting.id %}">Delete</a>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

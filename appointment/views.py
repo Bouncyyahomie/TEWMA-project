@@ -14,6 +14,8 @@ from django.db.models import Q
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
+from .forms import UserCreateMeetForm, UserEditMeetForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 import calendar
 
@@ -146,3 +148,47 @@ def appointment_participants(request, meeting_id):
     meeting = get_object_or_404(Meeting, pk=meeting_id)
     participants = UserMeeting.objects.filter(meeting=meeting, is_join=True)
     return render(request, 'appointment/participants.html', {'participants': participants})
+
+
+class CreateMeeting(LoginRequiredMixin, generic.CreateView):
+    """For create a meeting"""
+    model = Meeting
+    form_class = UserCreateMeetForm
+    template_name = 'appointment/create_meeting.html'
+
+    def form_valid(self, form):
+        """Add host permission to user that create meeting."""
+        form.instance.host = self.request.user
+        return super().form_valid(form)
+
+
+class EditMeeting(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    """For create a meeting"""
+    model = Meeting
+    form_class = UserEditMeetForm
+    template_name = 'appointment/edit_meeting.html'
+
+    def form_valid(self, form):
+        """Add host permission to user that create meeting."""
+        form.instance.host = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        """Test the user to edit meeting. The host can editable only."""
+        meeting = self.get_object()
+        if self.request.user == meeting.host:
+            return True
+        return False
+
+
+class DeleteMeeting(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Meeting
+    template_name = 'appointment/delete_meeting.html'
+    success_url = '/'
+
+    def test_func(self):
+        """Test the user to delete meeting. The host can deleteable only."""
+        meeting = self.get_object()
+        if self.request.user == meeting.host:
+            return True
+        return False
