@@ -2,6 +2,7 @@
 from calendar import HTMLCalendar
 from .models import Meeting
 from django.urls import reverse
+from django.utils import timezone
 from datetime import datetime
 # from eventcalendar.helper import get_current_user
 
@@ -17,7 +18,7 @@ class Calendar(HTMLCalendar):
 
     def formatday(self, day, meetings):
         """Return table HTML tag with list of meeting."""
-        meets_per_day = meetings.filter(start_time__day=day)
+        meets_per_day = meetings.filter(start_time__day=day, end_time__gt=timezone.now())
         meets_in_day = ''
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.get_html_url} </li>"

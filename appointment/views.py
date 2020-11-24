@@ -1,6 +1,6 @@
 """Views for Django appointment app."""
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.db.models import Q
 from django.utils.safestring import mark_safe
@@ -73,6 +73,9 @@ def detail(request, meeting_id):
     """Render to meeting's detail page."""
     meetings = get_object_or_404(Meeting, pk=meeting_id)
     context = {'meeting': meetings}
+    if meetings.is_ended():
+        messages.error(request, "This meeting is ended.")
+        return redirect('appointment:home_page')
     return render(request, 'appointment/detail.html', context)
 
 
