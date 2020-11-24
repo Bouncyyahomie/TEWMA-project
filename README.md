@@ -29,3 +29,7 @@ Django web application for Online tutoring appointment.
 [Iteration 5 plan](../../wiki/Iteration%205%20Plan)
 
 [Iteration 6 plan](../../wiki/Iteration%206%20Plan)
+
+[Iteration 7 plan](../../wiki/Iteration%207%20Plan)
+
+[Iteration 8 plan](../../wiki/Iteration%208%20Plan)
