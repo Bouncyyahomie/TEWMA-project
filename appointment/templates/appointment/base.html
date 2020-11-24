@@ -13,32 +13,37 @@
     <link rel="stylesheet" type="text/css" href="{% static 'appointment/style.css' %}">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"
           media="all"/>
+    
     <title>TewMa</title>
-
-    <style>
-        .alert {
-            opacity: 1;
-            transition: opsacity 0.6s; /* 600ms to fade out */
+    <script type="text/javascript">
+        function display_c(){
+        var refresh=1000; // Refresh rate in milli seconds
+        myTime=setTimeout('display_ct()', refresh)
         }
-
-        .closebtn {
-            margin-left: 15px;
-            color: white;
-            font-weight: bold;
-            float: right;
-            font-size: 22px;
-            line-height: 20px;
-            cursor: pointer;
-            transition: 0.3s;
+        
+    function display_ct() {
+        let thisDay = new Date()
+        let hours = thisDay.getHours();
+        let postFix = "a.m.";
+        if (hours > 12){
+            postFix = "p.m.";
+            hours = hours -12;
         }
-
-        .closebtn:hover {
-            color: black;
+        let minutes = thisDay.getMinutes();
+        if (minutes < 10){
+            minutes = `0${minutes}`
         }
-    </style>
+        let now = `${hours}:${minutes} ${postFix}`
+        document.getElementById('time').innerHTML = now;
+        display_c();
+        }
+        </script>
+
 </head>
-<body>
+
+<body onload ="display_ct()">
 <div class="container">
+
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -68,7 +73,33 @@
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="col-md-2">
+            <a class="nav-item" > <span class = "page-name">
+                {% if "detail" in request.path or "join" in request.path or "leave" in request.path %}
+                    Detail
+                {% elif "login" in request.path %}
+                    Login
+                {% elif "meeting" in request.path %}
+                    Meeting List
+                {% elif "participants" in request.path %}
+                    Participants
+                {% elif "create" in request.path %}
+                    Create your meeting
+                {% elif "edit_profile" in request.path %}
+                    Edit Profile
+                {% elif "profile" in request.path %}
+                    Your Profile
+                {% elif "result" in request.path %}
+                    Search result
+                {% elif "register" in request.path %}
+                    Register
+                {% else %}
+                    Home
+                {% endif %}
 
+                </span>
+            </a>
+        </div>
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarsExampleDefault">
             <form class="input-group col-md-3 ml-auto" method="GET" action="{% url 'appointment:search' %}">
                 <input class="form-control py-2 border-right-0 border" name="q" value="{{ request.GET.q }}"
@@ -103,9 +134,12 @@
 
         </div>
     </nav>
-    {% block content %}{% endblock %}
+    <p>Time:  <span id="time"></span></p>
+    {% block content %}
+    {% endblock %}
 </div>
 </body>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
             type="text/javascript"></script>
