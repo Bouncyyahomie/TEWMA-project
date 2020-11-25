@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserCreateMeetForm, UserEditMeetForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 import calendar
 
@@ -150,23 +151,32 @@ def appointment_participants(request, meeting_id):
     return render(request, 'appointment/participants.html', {'participants': participants})
 
 
-class CreateMeeting(LoginRequiredMixin, generic.CreateView):
+class CreateMeeting(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     """For create a meeting"""
     model = Meeting
     form_class = UserCreateMeetForm
     template_name = 'appointment/create_meeting.html'
+    success_message = "%(subject)s was created successfully!!"
 
     def form_valid(self, form):
         """Add host permission to user that create meeting."""
         form.instance.host = self.request.user
         return super().form_valid(form)
 
+    def get_success_message(self, cleaned_data):
+        """Get cleaned date form."""
+        return self.success_message % dict(
+            cleaned_data,
+            subject=self.object.subject,
+        )
 
-class EditMeeting(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+
+class EditMeeting(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.UpdateView):
     """For create a meeting"""
     model = Meeting
     form_class = UserEditMeetForm
     template_name = 'appointment/edit_meeting.html'
+    success_message = "%(subject)s was edited successfully!!"
 
     def form_valid(self, form):
         """Add host permission to user that create meeting."""
@@ -179,12 +189,20 @@ class EditMeeting(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
         if self.request.user == meeting.host:
             return True
         return False
+    
+    def get_success_message(self, cleaned_data):
+        """Get cleaned date form."""
+        return self.success_message % dict(
+            cleaned_data,
+            subject=self.object.subject,
+        )
 
 
-class DeleteMeeting(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+class DeleteMeeting(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.DeleteView):
     model = Meeting
     template_name = 'appointment/delete_meeting.html'
     success_url = '/'
+    success_message = "%(subject)s was deleted successfully!!"
 
     def test_func(self):
         """Test the user to delete meeting. The host can deleteable only."""
@@ -192,3 +210,16 @@ class DeleteMeeting(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView)
         if self.request.user == meeting.host:
             return True
         return False
+
+    def get_success_message(self, cleaned_data):
+        """Get cleaned date form."""
+        return self.success_message % dict(
+            cleaned_data,
+            subject=self.object.subject,
+        )
+    
+    def delete(self, request, *args, **kwargs):
+        """Override delete method for show the success message."""
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(DeleteMeeting, self).delete(request, *args, **kwargs)
