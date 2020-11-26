@@ -17,6 +17,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserCreateMeetForm, UserEditMeetForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 import calendar
 
@@ -148,7 +150,7 @@ def appointment_participants(request, meeting_id):
     """Show the participant on each appointment."""
     meeting = get_object_or_404(Meeting, pk=meeting_id)
     participants = UserMeeting.objects.filter(meeting=meeting, is_join=True)
-    return render(request, 'appointment/participants.html', {'participants': participants})
+    return render(request, 'appointment/participants.html', {'participants': participants, 'meeting': meeting})
 
 
 class CreateMeeting(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
@@ -172,7 +174,7 @@ class CreateMeeting(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView)
 
 
 class EditMeeting(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.UpdateView):
-    """For create a meeting"""
+    """For edit a meeting. Only host can do this."""
     model = Meeting
     form_class = UserEditMeetForm
     template_name = 'appointment/edit_meeting.html'
@@ -199,6 +201,7 @@ class EditMeeting(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, 
 
 
 class DeleteMeeting(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.DeleteView):
+    """For delete a meeting. Only host can do this."""
     model = Meeting
     template_name = 'appointment/delete_meeting.html'
     success_url = '/'
@@ -223,3 +226,22 @@ class DeleteMeeting(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin
         obj = self.get_object()
         messages.success(self.request, self.success_message % obj.__dict__)
         return super(DeleteMeeting, self).delete(request, *args, **kwargs)
+
+def kick(request, meeting_id, user_id):
+    """Remove the user from the meeting"""
+    meeting = get_object_or_404(Meeting, pk=meeting_id)
+    user = get_object_or_404(User, pk=user_id)
+    user_meeting = UserMeeting.objects.filter(user=user).filter(meeting=meeting).first()
+    if (request.user == meeting.host):
+        if user_meeting is not None:
+            if not user_meeting.is_join:
+                messages.error(request, "This user doesn't joined yet.")
+            else:
+                obj, created = UserMeeting.objects.update_or_create(user=user, meeting=meeting, defaults={"is_join": False})
+                if not obj.is_join:
+                    messages.success(request, f"Kick {user.username} from {meeting.subject} successfully!!")
+        else:
+            messages.error(request, "This user doesn't joined yet.")
+    else:
+        messages.error(request, "You don't have that permission!!")
+    return redirect('appointment:detail', meeting_id=meeting.id)
