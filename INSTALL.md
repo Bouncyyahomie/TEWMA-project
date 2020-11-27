@@ -56,7 +56,7 @@ python -m pip install virtualenv
     ```
     python manage.py loaddata users.json
     ```
-8. Login to DEK-COM web application using demo account   
+8. Login to TEWMA tutoring web application using demo account   
     **Username:** sample1   
     **Password:** isp123456
 
