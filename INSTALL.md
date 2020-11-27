@@ -56,14 +56,14 @@ python -m pip install virtualenv
     ```
     python manage.py loaddata users.json
     ```
-8. Login to TEWMA tutoring web application using demo account   
-    **Username:** sample1   
-    **Password:** isp123456
-
 7. start running the server by this command.
     ```
     python manage.py runserver
      ```
+8. Login to TEWMA tutoring web application using demo account   
+    **Username:** sample1   
+    **Password:** isp123456
+    
 8. Exit the virtualenv using `deactivate`.
     ```
     deactivate
