@@ -8,10 +8,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 bg-transparent text-center">
-                    <a class="btn btn-outline-info right mr-2 "
-                       href="{% url 'appointment:home_page' %}?{{ prev_month }}"> << Previous Month </a>
-                    <a class="btn btn-outline-info right mr-2 "
-                       href="{% url 'appointment:home_page' %}?{{ next_month }} "> Next Month >> </a>
+                    <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}?{{ prev_month }}"> << Previous Month </a>
+                    <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}?{{ next_month }} "> Next Month >> </a>
+                    <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}">Today</a>
                 </div>
             </div>
         </div>

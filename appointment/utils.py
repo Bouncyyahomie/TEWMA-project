@@ -2,6 +2,8 @@
 from calendar import HTMLCalendar
 from .models import Meeting
 from django.urls import reverse
+from django.utils import timezone
+from datetime import datetime
 # from eventcalendar.helper import get_current_user
 
 
@@ -16,16 +18,21 @@ class Calendar(HTMLCalendar):
 
     def formatday(self, day, meetings):
         """Return table HTML tag with list of meeting."""
-        meets_per_day = meetings.filter(start_time__day=day)
+        meets_per_day = meetings.filter(start_time__day=day, end_time__gt=timezone.now())
         meets_in_day = ''
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.get_html_url} </li>"
         if day != 0:
+            # if int(day) < int(datetime.today().day):
+            #         return f"<td style='background-color: grey;'><div class='box'><span class='date'>{day}</div> <button class='btn btn-outline-light' >Unavailable </button> </a></span></td>"
             if len(meets_per_day) >= 1:
                 url = reverse("appointment:meet_list", args=(self.year, self.month, day))
-                return f"<td><span class='date'>{day}<a href={url} class='btn btn-outline-info' role='button'> Avaliable </a></span></td>"
-            return f"<td><span class='date'>{day}</span></td>"
-        return '<td></td>'
+                if day == datetime.today().day:
+                    return f"<td style='background-color: #e8e8e8e8;'><div class='box'><span class='date'>{day}</div> <a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
+                return f"<td><div class='box'><span class='date'>{day}</div> <a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
+            return f"<td><div class='box'><span class='date'>{day}</span></div><button class='btn btn-outline-light' >Unavailable</button></td>"
+        return f"<td></td>"
+        # return f"<td style='background-color: grey;'></td>"
 
     def formatweek(self, theweek, meetings):
         """Return table row HTML tag for each week."""

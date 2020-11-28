@@ -12,6 +12,7 @@
             {% if meeting.upload %}
                 <p>File : <a href="{{ meeting.upload.url }}" class="btn btn-info btn-sm">Download file</a></p>
             {% endif %}
+            <div class="button-container">
             <form action="{% url 'appointment:join' meeting.id %}" method="post">
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value="Join">
@@ -24,6 +25,7 @@
                 {% csrf_token %}
                 <input class="btn btn-info" type="submit" value="Participants">
             </form>
+            </div>
         </div>
     </div>
 {% endblock %}
