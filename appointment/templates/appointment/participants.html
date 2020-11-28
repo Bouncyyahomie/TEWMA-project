@@ -1,7 +1,7 @@
 {% extends 'appointment/base.html' %}
 
 {% block content %}
-<div>
+<div class="">
     {% if participants %}
         {% for user in participants %}
             <a href="{% url 'other_profiles' user.user.id %}" target="_blank"> <img src="{{ user.user.profile.image.url }}" width="50"></a>
