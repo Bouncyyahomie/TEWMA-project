@@ -1,25 +1,26 @@
 {% extends "appointment/base.html" %}
 {% load iterator %}
 {% block content %}
-<div class="container">
-    <h1>{{ user.username }} Profile</h1>
-    <div class="media">
-    <img src="{{ user.profile.image.url }}" width="300">
-    </div>
-    <legend class="border-bottom mb-4">Profile Info</legend>
-    <div class = "profile-container">
-        <table>
-            {% for detail in user_profile %}
-            <tr>
-                <td>{{profile_info|iterator:forloop.counter0}}:</td>
-                <td>{{detail}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+
+    <div class="main-container">
+        <h1>{{ user.username }} Profile</h1>
+        <div class="media">
+            <img src="{{ user.profile.image.url }}" width="300">
+        </div>
+        <legend class="border-bottom mb-4">Profile Info</legend>
+        <div class="profile-container">
+            <table>
+                {% for detail in user_profile %}
+                    <tr>
+                        <td>{{ profile_info|iterator:forloop.counter0 }}:</td>
+                        <td>{{ detail }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
         <div>
             <h1></h1>
             <a href="{% url 'edit_profile' %}" class="btn btn-primary"> edit profile</a>
         </div>
-</div>
+    </div>
 {% endblock content %}
