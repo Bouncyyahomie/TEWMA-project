@@ -84,3 +84,5 @@ class MeetingDetailView(TestCase):
         meeting_detail_url = reverse('appointment:detail', args=(meeting1.id,))
         response = self.client.get(meeting_detail_url)
         self.assertEqual(response.status_code, 200)
+
+    

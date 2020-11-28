@@ -57,33 +57,19 @@ def edit_profile(request):
     return render(request, 'users/edit_profile.html', context)
 
 
-@login_required
-def create_meet(request):
-    """Create meeting form."""
-    if request.method == 'POST':
-        form = UserCreateMeetForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            subject = form.cleaned_data.get('subject')
-            start_time = form.cleaned_data.get('start_time').strftime('%d %B %Y')
-            messages.success(request, f'{subject} start at {start_time} has been created!!')
-            return redirect('appointment:home_page')
-    else:
-        form = UserCreateMeetForm()
-    return render(request, 'users/create_meeting.html', {'form': form})
-
 def other_profiles(request, user_id):
     """View the other profiles."""
     specific_user = get_object_or_404(User, pk=user_id)
     joining_meet = UserMeeting.objects.filter(user=specific_user, is_join=True)
     return render(request, 'users/other_profiles.html', {'specific_user': specific_user, 'joining_meet': joining_meet})
 
+
 @login_required
 def profile(request):
     """Edit your profiles."""
     profile_info = ["Username", "Email", "University", "Address"]
-    user_profile = [request.user.username, request.user.email, request.user.profile.university, request.user.profile.address]
-    context = {"user_profile":user_profile, "profile_info": profile_info}
+    user_profile = [request.user.username, request.user.email,
+                    request.user.profile.university, request.user.profile.address]
+    context = {"user_profile": user_profile, "profile_info": profile_info}
 
-    return render(request, 'users/profile.html',context)
-
+    return render(request, 'users/profile.html', context)

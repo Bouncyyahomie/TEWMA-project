@@ -4,9 +4,12 @@
 <div>
     <h1>Participants</h1>
     {% if participants %}
-        {% for user in participants %}
-            <a href="{% url 'other_profiles' user.user.id %}" target="_blank"> <img src="{{ user.user.profile.image.url }}" width="50px;"></a>
-            <a href="{% url 'other_profiles' user.user.id %}" target="_blank"> {{ user.user.username }}</a>
+        {% for each_user in participants %}
+            <a href="{% url 'other_profiles' each_user.user.id %}" target="_blank"> <img src="{{ each_user.user.profile.image.url }}" width="50px;"></a>
+            <a href="{% url 'other_profiles' each_user.user.id %}" target="_blank"> {{ each_user.user.username }}</a>
+            {% if meeting.host == user and each_user.user != user %}
+                <a class="btn btn-danger" href="{% url 'appointment:kick' meeting.id each_user.user.id %}">Kick</a>
+            {% endif %}
             <br>
         {% endfor %}
     {% endif %}

@@ -32,7 +32,7 @@ class MeetingModelTest(TestCase):
 
     def test_get_html_url_from_meeting(self):
         """Test if it can get a URL from the Meeting object."""
-        self.assertEqual(self.meeting1.get_html_url, '<a href="/1/detail"> Subject1</a>')
+        self.assertEqual(self.meeting1.get_html_url, '<a href="/meeting/1/detail"> Subject1</a>')
 
     def test_get_meeting_date(self):
         """Test if it can get the meeting date."""
