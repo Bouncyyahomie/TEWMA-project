@@ -12,6 +12,7 @@ from .forms import UserRegisterForm, UserCreateMeetForm, UserUpdateDetailForm, P
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
+from appointment.models import UserMeeting
 
 
 def register(request):
@@ -75,5 +76,6 @@ def create_meet(request):
 def other_profiles(request, user_id):
     """View the other profiles."""
     specific_user = get_object_or_404(User, pk=user_id)
-    return render(request, 'users/other_profiles.html', {'specific_user': specific_user})
+    joining_meet = UserMeeting.objects.filter(user=specific_user, is_join=True)
+    return render(request, 'users/other_profiles.html', {'specific_user': specific_user, 'joining_meet': joining_meet})
 
