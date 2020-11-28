@@ -114,3 +114,125 @@ class MeetingParticipantTest(TestCase):
         self.client.get(self.joining_url)
         response = self.client.get(self.participant_url)
         self.assertQuerysetEqual(response.context['participants'], ['<UserMeeting: User1 has joined in Subject1>'])
+
+
+class KickTest(TestCase):
+    """Test kick button."""
+
+    def setUp(self):
+        """Set up for test."""
+        self.user1 = create_user("User1", "User1@gmail.com", "isp123456")
+        self.host_user = create_user("Host", "Host@gmail.com", "isp123456")
+        self.time_start1 = timezone.now()
+        self.time_end1 = timezone.now() + timedelta(days=30)
+
+    def test_try_to_kick_a_user_by_host_account(self):
+        """Host user has permission for kick a user."""
+        #Logged in host user.
+        self.client.login(username='Host', password='isp123456')
+        #Create meeting with host user.
+        self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ',
+                                                                 'description': 'Economic for better living', 'start_time': self.time_start1,
+                                                                 'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
+        meeting1 = Meeting.objects.filter(host=self.host_user).first()
+        self.client.logout() #Host user has logged out.
+        #Logged in User1.
+        self.client.login(username='User1', password='isp123456')
+        self.joining_url = reverse('appointment:join', args=(meeting1.id,))
+        #User1 join meeting1.
+        response = self.client.get(self.joining_url)
+        self.client.logout() #User1 user has logged out.
+        #Logged in Host.
+        self.client.login(username='Host', password='isp123456')
+        #Before kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], ['<UserMeeting: User1 has joined in Econ>'])
+        response = self.client.get(reverse('appointment:kick', kwargs={'meeting_id': meeting1.id, 'user_id': self.user1.id}))
+        messages = list(get_messages(response.wsgi_request))
+        #Test message
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), f"Kick {self.user1.username} from {meeting1.subject} successfully!!")
+        #After kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], [])
+
+    def test_try_to_kick_a_user_with_the_user_not_have_permission(self):
+        """The user not have permission to kick, that user can not kick anyone."""
+        #Logged in host user.
+        self.client.login(username='Host', password='isp123456')
+        #Create meeting with host user.
+        self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ',
+                                                                 'description': 'Economic for better living', 'start_time': self.time_start1,
+                                                                 'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
+        meeting1 = Meeting.objects.filter(host=self.host_user).first()
+        #Host join meeting.
+        self.joining_url = reverse('appointment:join', args=(meeting1.id,))
+        response = self.client.get(self.joining_url)
+        self.client.logout() #Host user has logged out.
+        #Logged in User1.
+        self.client.login(username='User1', password='isp123456')
+        #Before kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], ['<UserMeeting: Host has joined in Econ>'])
+        #Kick host user
+        response = self.client.get(reverse('appointment:kick', kwargs={'meeting_id': meeting1.id, 'user_id': self.host_user.id}))
+        messages = list(get_messages(response.wsgi_request))
+        #Test message
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), f"You don't have that permission!!")
+        #After kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], ['<UserMeeting: Host has joined in Econ>'])
+
+    def test_try_to_kick_the_user_does_not_join_yet(self):
+        """Can not kick the user that does not join yet."""
+        #Logged in host user.
+        self.client.login(username='Host', password='isp123456')
+        #Create meeting with host user.
+        self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ',
+                                                                 'description': 'Economic for better living', 'start_time': self.time_start1,
+                                                                 'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
+        meeting1 = Meeting.objects.filter(host=self.host_user).first()
+        #Before kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], [])
+        response = self.client.get(reverse('appointment:kick', kwargs={'meeting_id': meeting1.id, 'user_id': self.user1.id}))
+        messages = list(get_messages(response.wsgi_request))
+        #Test message
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "This user doesn't joined yet.")
+        #After kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], [])
+
+    def test_try_to_kick_the_user_used_to_joined_but_leave_for_now(self):
+        """Can not kick the user that leave from meeting."""
+        #Logged in host user.
+        self.client.login(username='Host', password='isp123456')
+        #Create meeting with host user.
+        self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ',
+                                                                 'description': 'Economic for better living', 'start_time': self.time_start1,
+                                                                 'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
+        meeting1 = Meeting.objects.filter(host=self.host_user).first()
+        self.client.logout() #Host user has logged out.
+        #Logged in User1.
+        self.client.login(username='User1', password='isp123456')
+        self.joining_url = reverse('appointment:join', args=(meeting1.id,))
+        self.leaving_url = reverse('appointment:leave', args=(meeting1.id,))
+        #User1 join meeting1.
+        response = self.client.get(self.joining_url)
+        response = self.client.get(self.leaving_url)
+        self.client.logout() #User1 user has logged out.
+        #Logged in Host.
+        self.client.login(username='Host', password='isp123456')
+        #Before kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], [])
+        response = self.client.get(reverse('appointment:kick', kwargs={'meeting_id': meeting1.id, 'user_id': self.user1.id}))
+        messages = list(get_messages(response.wsgi_request))
+        #Test message
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), "This user doesn't joined yet.")
+        #After kick
+        response = self.client.get(reverse('appointment:participants', args=(meeting1.id,)))
+        self.assertQuerysetEqual(response.context['participants'], [])
