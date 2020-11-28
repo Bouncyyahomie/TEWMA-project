@@ -21,49 +21,55 @@
   color: white;
 }
 .calendar {
-width: 98%;
-margin: auto;
-font-size: 13px;
+    width: 98%;
+    margin: auto;
+    font-size: 13px;
 }
 
 .calendar tr, .calendar td {
-border: 1px solid black;
+    border: 1px solid black;
 }
 
 .calendar th {
-padding: 10px;
-text-align: center;
-font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
 }
 
 .calendar td {
-width: 200px;
-height: 150px;
-padding: 0px 0px 0px 5px;
+    width: 200px;
+    height: 150px;
+    padding: 20px 0px 0px 5px;
 }
 
 .month {
-font-size: 25px;
+    font-size: 25px;
 }
 
 .date {
-font-size: 16px;
+    font-size: 16px;
 }
 
 ul {
-height: 100%;
-padding: 0px 5px 0px 20px;
+    height: 100%;
+    padding: 0px 5px 0px 20px;
 }
 
 body {
-padding-top: 65px;
-font-size: 18px;
+    padding-top: 65px;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
 }
 
-.meeting-list {
-margin: auto;
-width: 100%;
+.meeting_list {
+    margin: auto;
+    width: 100%;
 
+}
+
+.main-container{
+    margin-left: 70px;
+    /* margin-right: 70px; */
 }
 
 .meeting-list th{
@@ -90,8 +96,98 @@ margin: 10px 0px 10px 0px;
 .profile-container{
   white-space: pre-line;
   width: 100%;
-
 }
+.navbar-default {
+    background-color: darkslategrey;
+    margin-left: 200px;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #497e7e;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    white-space: nowrap;
+    height: calc(100% - 9%);
+    z-index: 1;
+    border-right: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.sidebar .navbar .side-menu-container {
+    overflow: hidden;
+}
+
+.sidebar .navbar {
+    border: none;
+    margin-left: 0;
+    background-color: inherit;
+}
+
+.sidebar .navbar-header {
+    width: 100%;
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 20px;
+}
+
+.sidebar .navbar .profile_image {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.sidebar .navbar .h4 {
+    color: palevioletred;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar .navbar a {
+    overflow: hidden;
+    color: aliceblue;
+    display: block;
+    width: 100%;
+    line-height: 38px;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition-property: background;
+}
+
+.sidebar .navbar .side-menu-container a {
+    overflow: hidden;
+    font-size: 16px;
+    color: aliceblue;
+    display: block;
+    position: relative;
+    padding: 10px 45px 20px 0px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    transition-property: background;
+}
+
+.sidebar .navbar .side-menu-container a:hover {
+    background: palevioletred;
+}
+
+.sidebar .navbar i {
+    padding-right: 10px;
+}
+
+.sidebar.collapse .navbar {
+    width: 70px;
+}
+
+.sidebar.collapse .navbar .profile img,
+.sidebar.collapse .navbar .profile p,
+.sidebar.collapse .navbar a span {
+    display: none;
+}
+
 .navbar{
   font-size: 16px;
   font-weight: bold;

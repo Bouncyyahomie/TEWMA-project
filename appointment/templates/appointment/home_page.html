@@ -1,21 +1,23 @@
 {% extends 'appointment/base.html' %}
 
 {% block content %}
-<div class="clearfix">
-    <h1 class="left m-2" style="font-size: 20px;">Welcome, {{request.user}} </h1>
-    </div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 bg-transparent text-center">
-            <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}?{{ prev_month }}"> << Previous Month </a>
-            <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}?{{ next_month }} "> Next Month >> </a>
-            <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}">Today</a>
+    <div class="main-container" style="margin-right:70px">
+        <div class="clearfix">
+            <h1 class="left m-2" style="font-size: 20px; padding-left: 6rem; ">Welcome, {{ request.user }} </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 bg-transparent text-center">
+                    <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}?{{ prev_month }}"> << Previous Month </a>
+                    <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}?{{ next_month }} "> Next Month >> </a>
+                    <a class="btn btn-outline-info right mr-2 " href="{% url 'appointment:home_page' %}">Today</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div style="color: palevioletred;">
+                <br>{{ calendar }}
+            </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div style="color: palevioletred;">
-        <br>{{ calendar }}
-    </div>
-</div>
 {% endblock %}
