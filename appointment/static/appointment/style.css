@@ -68,8 +68,7 @@ body {
 }
 
 .main-container{
-    margin-left: 70px;
-    /* margin-right: 70px; */
+    padding-left: 215px;
 }
 
 .meeting-list th{
@@ -178,17 +177,11 @@ margin: 10px 0px 10px 0px;
     padding-right: 10px;
 }
 
-.sidebar.collapse .navbar {
-    width: 70px;
-}
-
-.sidebar.collapse .navbar .profile img,
-.sidebar.collapse .navbar .profile p,
-.sidebar.collapse .navbar a span {
-    display: none;
-}
-
 .navbar{
   font-size: 16px;
   font-weight: bold;
 }
+
+.main-col{
+    padding-right: 215px;
+} 
