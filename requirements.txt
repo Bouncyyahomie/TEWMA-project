@@ -8,3 +8,4 @@ psycopg2~=2.8.6
 django-psycopg2-extension
 django-heroku==0.3.1
 whitenoise~=5.2.0
+gunicorn
