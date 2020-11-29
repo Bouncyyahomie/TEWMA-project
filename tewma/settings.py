@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import environ
 import os
-import django_heroku
 
 env = environ.Env()
 env.read_env()
@@ -148,4 +147,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-django_heroku.settings(locals())
+if '/app' in os.environ['HOME']:
+    import django_heroku
+    django_heroku.settings(locals())
