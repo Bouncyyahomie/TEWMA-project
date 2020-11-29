@@ -1,1 +1,1 @@
-web: gunicorn TewMa.wsgi:application --log-file -
+web: gunicorn tewma.wsgi
