@@ -4,3 +4,4 @@ django-environ
 django-crispy-forms
 Pillow
 django_cleanup
+django_heroku
