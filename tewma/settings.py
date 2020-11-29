@@ -26,7 +26,7 @@ SECRET_KEY = 'cx)dcj)h%4!bql-0!8zqiaqm$3gdsrh5_!c@3z4$*&99*=fztp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tewma.herokuapp.com/']
 
 
 # Application definition
