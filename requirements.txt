@@ -5,7 +5,4 @@ django-crispy-forms
 Pillow
 django_cleanup
 django_heroku
-psycopg2_extension
 psycopg2~=2.8.6
-psycopg2-binary
-setuptools==0.7.3 
