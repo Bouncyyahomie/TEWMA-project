@@ -6,4 +6,3 @@ Pillow
 django_cleanup
 django_heroku
 psycopg2~=2.8.6
-psycopg2_extension
