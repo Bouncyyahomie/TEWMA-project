@@ -1,5 +1,7 @@
 """Urls for Django appointment app."""
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -17,4 +19,4 @@ urlpatterns = [
     path('meeting/<int:pk>/edit', views.EditMeeting.as_view(), name='edit-meeting'),
     path('meeting/<int:pk>/delete', views.DeleteMeeting.as_view(), name='delete-meeting'),
     path('meeting/<int:meeting_id>/<int:user_id>/kick', views.kick, name='kick'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
