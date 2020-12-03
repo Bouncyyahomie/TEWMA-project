@@ -28,9 +28,11 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = env('SECRET_KEY', default='dumb-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['tewma-meeting.herokuapp.com', '127.0.0.1']
+# ALLOWED_HOSTS = ['tewma-meeting.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1'])
 
 
 # Application definition
@@ -157,6 +159,5 @@ AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-if '/app' in os.environ['HOME']:
-    import django_heroku
-    django_heroku.settings(locals())
+import django_heroku
+django_heroku.settings(locals(), test_runner=False)
