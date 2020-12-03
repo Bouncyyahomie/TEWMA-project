@@ -10,7 +10,7 @@
             <p>Time : {{ meeting.start_time|time:"P" }} - {{ meeting.end_time|time:"P" }}</p>
             <p>Contact : {{ meeting.contact }}</p>
             {% if meeting.upload %}
-                <p>File : <a href="{{ meeting.upload.url }}" class="btn btn-info btn-sm">Download file</a></p>
+                <p>File : <a href="{{ meeting.upload.url }}" class="btn btn-info btn-sm" target="_blank">Download file</a></p>
             {% endif %}
             <div class="button-container">
                 {% if user.is_authenticated %}
