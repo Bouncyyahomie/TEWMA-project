@@ -63,6 +63,9 @@ class IndexView(generic.ListView):
         context['calendar'] = mark_safe(html_calendar)
         context['prev_month'] = prev_month(this_day)
         context['next_month'] = next_month(this_day)
+        context['day'] = datetime.today().day
+        context['month'] = datetime.today().month
+        context['year'] = datetime.today().year
         return context
 
 
@@ -70,7 +73,13 @@ def meeting_list(request, year, month, day):
     """Render to meeting list of specific day."""
     meetings = Meeting.objects.filter(start_time__year=year, start_time__month=month, start_time__day=day).order_by(
         'start_time')
-    context = {'meeting': meetings}
+    is_contain = True
+    if len(meetings) == 0 :
+        is_contain = False
+    day = date(year, month, day)
+    context = {'meeting': meetings , "day": day.strftime("%d %b %Y"),
+                    "is_contain": is_contain}
+
     return render(request, 'appointment/meeting_list.html', context)
 
 
