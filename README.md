@@ -12,11 +12,11 @@ Django web application for Online tutoring appointment.
 
 [Vision Statement](../../wiki/Vision%20Statement)
 
-[Instructions](INSTALL.md)
+[Install Project Instructions](INSTALL.md)
 
-[Checklist](../../wiki/Checklist)
+[Code Review Checklist](../../wiki/Checklist)
 
-[Procedure](../../wiki/Procedure)
+[Code Review Procedure](../../wiki/Procedure)
 
 [Iteration 1 plan](../../wiki/Iteration%201%20Plan)
 
