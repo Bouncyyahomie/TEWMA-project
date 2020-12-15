@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib.messages import get_messages
-from django.core.exceptions import ValidationError
 
 
 def create_user(username, email, password):
