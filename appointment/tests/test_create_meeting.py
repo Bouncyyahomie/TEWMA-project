@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib.messages import get_messages
+from django.core.exceptions import ValidationError
 
 
 def create_user(username, email, password):
@@ -48,19 +49,19 @@ class CreateMeetingFormTest(TestCase):
                                                         'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
         self.assertEqual(response.status_code, 200)
 
-    def test_create_meeting_but_not_input_start_time(self):
-        """When create meeting the user should input the start_time, if not input the start_time still that page."""
-        self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
-        response = self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ', 'description': 'Economic for better living',
-                                                        'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
-        self.assertEqual(response.status_code, 200)
+    # def test_create_meeting_but_not_input_start_time(self):
+    #     """When create meeting the user should input the start_time, if not input the start_time still that page."""
+    #     self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
+    #     response = self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ', 'description': 'Economic for better living',
+    #                                                     'end_time': self.time_end1, 'location': 'KU', 'contact': '191'})
+    #     self.assertEqual(response.status_code, 200)
 
-    def test_create_meeting_but_not_input_end_time(self):
-        """When create meeting the user should input the end_time, if not input the end_time still that page."""
-        self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
-        response = self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ', 'description': 'Economic for better living',
-                                                        'start_time': self.time_start1, 'location': 'KU', 'contact': '191'})
-        self.assertEqual(response.status_code, 200)
+    # def test_create_meeting_but_not_input_end_time(self):
+    #     """When create meeting the user should input the end_time, if not input the end_time still that page."""
+    #     self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
+    #     response = self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ', 'description': 'Economic for better living',
+    #                                                     'start_time': self.time_start1, 'location': 'KU', 'contact': '191'})
+    #     self.assertEqual(response.status_code, 200)
 
     def test_create_meeting_but_not_input_location(self):
         """When create meeting the user should input the location, if not input the location still that page."""
@@ -91,3 +92,11 @@ class CreateMeetingFormTest(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), f"Econ was created successfully!!")
+
+    def test_when_set_appointment_end_date_before_start_date(self):
+        """When create meeting with end_date before start date. It will not shown the success messages."""
+        self.client.post(reverse('login'), {'username': 'User1', 'password': 'isp123456'}, follow=True)
+        response = self.client.post(reverse('appointment:create-meeting'), {'subject': 'Econ', 'description': 'Economic for better living',
+                                                        'start_time': self.time_end1, 'end_time': self.time_start1, 'location': 'KU', 'contact': '191'})
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 0)
