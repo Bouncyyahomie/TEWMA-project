@@ -19,4 +19,5 @@ urlpatterns = [
     path('meeting/<int:pk>/edit', views.EditMeeting.as_view(), name='edit-meeting'),
     path('meeting/<int:pk>/delete', views.DeleteMeeting.as_view(), name='delete-meeting'),
     path('meeting/<int:meeting_id>/<int:user_id>/kick', views.kick, name='kick'),
+    path("subscription", views.subscription, name="subscription"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

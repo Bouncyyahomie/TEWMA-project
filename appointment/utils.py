@@ -22,13 +22,15 @@ class Calendar(HTMLCalendar):
         meets_in_day = ''
         for meet in meets_per_day:
             meets_in_day += f"<li> {meet.get_html_url} </li>"
+
         if day != 0:
-            # if int(day) < int(datetime.today().day):
-            #         return f"<td style='background-color: grey;'><div class='box'><span class='date'>{day}</div> <button class='btn btn-outline-light' >Unavailable </button> </a></span></td>"
+            html_tag  = f"<td style='background-color: #e8e8e8e8;'><div class ='box'><span class = 'date>"
             if len(meets_per_day) >= 1:
                 url = reverse("appointment:meet_list", args=(self.year, self.month, day))
                 if day == datetime.today().day:
+                    # html_tag += f"{day}</div><a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
                     return f"<td style='background-color: #e8e8e8e8;'><div class='box'><span class='date'>{day}</div> <a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
+                # html_tag = f"<a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
                 return f"<td><div class='box'><span class='date'>{day}</div> <a href={url}> <button class='btn btn-outline-info' > Avaliable </button> </a></span></td>"
             return f"<td><div class='box'><span class='date'>{day}</span></div><button class='btn btn-outline-light' >Unavailable</button></td>"
         return f"<td></td>"

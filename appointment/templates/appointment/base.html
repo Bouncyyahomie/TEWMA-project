@@ -41,8 +41,7 @@
         document.getElementById('time').innerHTML = now;
         display_c();
         }
-        </script>
-
+    </script>
 </head>
 
 <body onload ="display_ct()">
@@ -165,7 +164,7 @@
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
-                        <li><a href="#"><i class="fa fa-table"></i>Subscriptions</a></li>
+                        <li><a href="{% url 'appointment:subscription' %}"><i class="fa fa-table"></i>Subscriptions</a></li>
                         <li><a href="{% url 'appointment:create-meeting' %}"><i class="fa fa-plus-square"></i>Create meeting</a></li>
                     {% else %}
                         <li class="nav-item">
@@ -179,9 +178,9 @@
     </div>
     <!--sidebar end-->
         {% block content %}
-    
+
         {% endblock %}
-</div>
+    </div>
 
 <script>
     $(function () {

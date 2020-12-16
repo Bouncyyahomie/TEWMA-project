@@ -1,29 +1,35 @@
 {% extends 'appointment/base.html' %}
 
 {% block content %}
-
-    <div class="main-container">
-        <table class="meeting_list">
+    <div class="container">
+        <h1>{{ day }}</h1>
+            <table class="meeting_list">
             <tr>
                 <th>Subject</th>
-                <th>Date</th>
                 <th>Location</th>
                 <th>Time</th>
                 <th>Detail</th>
             </tr>
-            {% for meet in meeting %}
-                {% if not meet.is_ended %}
-                    <tr>
-                        <td>{{ meet.subject }}</td>
-                        <td>{{ meet.start_time|date:"D d M Y" }}</td>
-                        <td> {{ meet.location }}</td>
-                        <td>{{ meet.start_time|time:"P" }}</td>
-                        <td><a href="{% url 'appointment:detail' meet.id %}" class="btn btn-outline-info" role="button">see
-                            more</a></td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
+
+                {% for meet in meeting %}
+                    {% if not meet.is_ended %}
+                        <tr>
+                            <td>{{ meet.subject }}</td>
+                            <td> {{ meet.location }}</td>
+                            <td>{{ meet.start_time|time:"P" }}</td>
+                            <td><a href="{% url 'appointment:detail' meet.id %}" class="btn btn-outline-info" role="button">see
+                                more</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
         </table>
+
+        <div style="color:gray; text-align: center; margin-top: 2rem;">        
+            {% if not is_contain %}
+                <h3>There're no meetings in this day</h3>
+            {% endif %}
+        </div>
+
     </div>
 
 {% endblock %}
