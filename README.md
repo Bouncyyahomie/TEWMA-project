@@ -1,11 +1,11 @@
 # TEWMA-project
-[![Build Status](https://travis-ci.com/Bouncyyahomie/TEWMA-project.svg?branch=main)](https://travis-ci.com/Bouncyyahomie/TEWMA-project)
-[![codecov](https://codecov.io/gh/Bouncyyahomie/TEWMA-project/branch/main/graph/badge.svg)](https://codecov.io/gh/Bouncyyahomie/TEWMA-project)
+[![Build Status](https://travis-ci.com/Bouncyyahomie/TEWMA-project.svg?branch=master)](https://travis-ci.com/Bouncyyahomie/TEWMA-project)
+[![codecov](https://codecov.io/gh/Bouncyyahomie/TEWMA-project/branch/master/graph/badge.svg)](https://codecov.io/gh/Bouncyyahomie/TEWMA-project)
 
 [![Code Quality Score](https://www.code-inspector.com/project/15883/status/svg)](https://frontend.code-inspector.com/public/project/15883/TEWMA-project/dashboard)
 [![Code Quality Score](https://www.code-inspector.com/project/15883/score/svg)](https://frontend.code-inspector.com/public/project/15883/TEWMA-project/dashboard)
 
-Django web application for Online tutoring appointment.
+TewMa is a web application for finding people who want to prepare for exams but don’t want to read alone. Therefore, TewMa can help them to find groups of meeting with a user-friendly design. Start by choosing the subject and then look at the calendar which informs you what date when they’re meeting in those subjects. Then, you can read the meeting's details and decide to join them.
 
 ## Project Document
 [Requirements](../../wiki/Requirements)
@@ -31,5 +31,3 @@ Django web application for Online tutoring appointment.
 [Iteration 6 plan](../../wiki/Iteration%206%20Plan)
 
 [Iteration 7 plan](../../wiki/Iteration%207%20Plan)
-
-[Iteration 8 plan](../../wiki/Iteration%208%20Plan)
