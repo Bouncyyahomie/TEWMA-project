@@ -164,8 +164,9 @@
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
-                        <li><a href="{% url 'appointment:subscription' %}"><i class="fa fa-table"></i>Subscriptions</a></li>
+                        <li><a href="{% url 'subscriptions' %}"><i class="fa fa-table"></i>Subscriptions</a></li>
                         <li><a href="{% url 'appointment:create-meeting' %}"><i class="fa fa-plus-square"></i>Create meeting</a></li>
+                        <li><a href="{% url 'my_meeting' %}"><i class="fa fa-id-badge" aria-hidden="true"></i>My meeting</a></li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'register' %}">SignUp</a>

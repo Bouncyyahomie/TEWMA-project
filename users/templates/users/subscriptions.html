@@ -1,0 +1,35 @@
+{% extends 'appointment/base.html' %}
+
+{% block content %}
+    {% if user_meeting %}
+    <div class="container">
+        <h1 class="display-6 border-bottom py-3">Results for your subscriptions"</h1>
+        <table class="meeting_list">
+            <tr>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Detail</th>
+            </tr>
+            {% for meet in user_meeting %}
+                {% if not meet.meeting.is_ended %}
+                    <tr>
+                        <td>{{ meet.meeting.subject }}</td>
+                        <td>{{ meet.meeting.start_time|date:"D d M Y" }}</td>
+                        <td> {{ meet.meeting.location }}</td>
+                        <td>{{ meet.meeting.start_time|time:"P" }}</td>
+                        <td><a href="{% url 'appointment:detail' meet.meeting.id %}" class="btn btn-outline-info" role="button">see
+                            more</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+        <div style="color:gray; text-align: center; margin-top: 2rem;">
+                <h3>There're no meetings in subscriptions</h3>
+        </div>
+    {% endif %}
+
+{% endblock %}

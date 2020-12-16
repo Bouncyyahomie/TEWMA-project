@@ -29,4 +29,6 @@ urlpatterns = [
     path('login/', user_views.LoginFormView.as_view(redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('<int:user_id>/profile', user_views.other_profiles, name='other_profiles'),
+    path('subscriptions/', user_views.subscriptions, name='subscriptions'),
+    path('my_meeting/', user_views.my_meeting, name='my_meeting'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

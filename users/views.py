@@ -11,7 +11,7 @@ from .forms import UserRegisterForm, UserCreateMeetForm, UserUpdateDetailForm, P
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
-from appointment.models import UserMeeting
+from appointment.models import UserMeeting, Meeting
 
 
 def register(request):
@@ -73,3 +73,17 @@ def profile(request):
     context = {"user_profile": user_profile, "profile_info": profile_info}
 
     return render(request, 'users/profile.html', context)
+
+@login_required
+def subscriptions(request):
+    """Show list of available meeting that logged-in user has joined."""
+    user = get_object_or_404(User, pk=request.user.id)
+    user_meeting = UserMeeting.objects.filter(user=user, is_join=True)
+    return render(request, 'users/subscriptions.html', {'user_meeting': user_meeting})
+
+@login_required
+def my_meeting(request):
+    """The meeting that logged-in user is a host."""
+    user = get_object_or_404(User, pk=request.user.id)
+    host_meeting = Meeting.objects.filter(host=user)
+    return render(request, 'users/my_meeting.html', {'host_meeting': host_meeting})
