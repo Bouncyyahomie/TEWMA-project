@@ -142,41 +142,43 @@
     </div>
     <!--sidebar start-->
     <!--NAV SIDEBAR-->
-    <div class="sidebar" id="sidebar" style="background-color:grey;">
-        <nav class="navbar navbar-default navbar-dark " role="navigation">
-            <div class="navbar-header">
-                <div class="brand-wrapper">
-                    <!-- Brand -->
-                    <div class="brand-name-wrapper" style="text-align: center">
-                        <a class="navbar-brand" href="{% url 'appointment:home_page' %}">
-                            TewMa
-                        </a>
+    {% if user.is_authenticated %}
+        <div class="sidebar" id="sidebar" style="background-color:grey;">
+            <nav class="navbar navbar-default navbar-dark " role="navigation">
+                <div class="navbar-header">
+                    <div class="brand-wrapper">
+                        <!-- Brand -->
+                        <div class="brand-name-wrapper" style="text-align: center">
+                            <a class="navbar-brand" href="{% url 'appointment:home_page' %}">
+                                TewMa
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div style="text-align: center;">
-                <img src="{{ user.profile.image.url }}" class="profile_image" alt="">
-                <h4 style="font-size: 25px; color: aliceblue">{{ request.user }} </h4>
-            </div>
-            <!-- Main Menu -->
+                <div style="text-align: center;">
+                    <img src="{{ user.profile.image.url }}" class="profile_image" alt="">
+                    <h4 style="font-size: 25px; color: aliceblue">{{ request.user }} </h4>
+                </div>
+                <!-- Main Menu -->
 
-            <div class="side-menu-container">
-                <ul class="nav navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
-                        <li><a href="{% url 'subscriptions' %}"><i class="fa fa-table"></i>Subscriptions</a></li>
-                        <li><a href="{% url 'appointment:create-meeting' %}"><i class="fa fa-plus-square"></i>Create meeting</a></li>
-                        <li><a href="{% url 'my_meeting' %}"><i class="fa fa-id-badge" aria-hidden="true"></i>My meeting</a></li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">SignUp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                    {% endif %}
-            </nav>
-    </div>
+                <div class="side-menu-container">
+                    <ul class="nav navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
+                            <li><a href="{% url 'subscriptions' %}"><i class="fa fa-table"></i>Subscriptions</a></li>
+                            <li><a href="{% url 'my_meeting' %}"><i class="fa fa-id-badge" aria-hidden="true"></i>My meeting</a></li>
+                            <li><a href="{% url 'appointment:create-meeting' %}"><i class="fa fa-plus-square"></i>Create meeting</a></li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">SignUp</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                        {% endif %}
+                </nav>
+        </div>
+    {% endif %}
     <!--sidebar end-->
         {% block content %}
 
