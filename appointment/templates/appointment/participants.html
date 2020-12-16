@@ -1,8 +1,7 @@
 {% extends 'appointment/base.html' %}
 
 {% block content %}
-<!-- <div class="main-container"> -->
-    <div class="container">
+<div class="container">
     <h1>Participants</h1>
     {% if participants %}
         {% for each_user in participants %}
@@ -15,5 +14,4 @@
         {% endfor %}
     {% endif %}
 </div>
-<!-- </div> -->
 {% endblock %}

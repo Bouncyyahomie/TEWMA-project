@@ -254,3 +254,12 @@ def kick(request, meeting_id, user_id):
     else:
         messages.error(request, "You don't have that permission!!")
     return redirect('appointment:detail', meeting_id=meeting.id)
+
+
+@login_required
+def subscription(request):
+    """Render to subscription page that show what meeting subscribed by a user."""
+    # sub_meetings 
+    
+    return render(request, "appointment/subscription.html")
+    
