@@ -1,0 +1,30 @@
+{% extends 'appointment/base.html' %}
+
+{% block content %}
+
+    <div class="main-container">
+        <h1 class="display-6 border-bottom py-3">Results for your subscriptions"</h1>
+        <table class="meeting_list">
+            <tr>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Detail</th>
+            </tr>
+            {% for meet in meeting %}
+                {% if not meet.is_ended %}
+                    <tr>
+                        <td>{{ meet.subject }}</td>
+                        <td>{{ meet.start_time|date:"D d M Y" }}</td>
+                        <td> {{ meet.location }}</td>
+                        <td>{{ meet.start_time|time:"P" }}</td>
+                        <td><a href="{% url 'appointment:detail' meet.id %}" class="btn btn-outline-info" role="button">see
+                            more</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
